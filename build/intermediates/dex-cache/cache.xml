@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/design/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-24.2.1_50c2770b46705db9a38d75382c674e9e6b6aeb83/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-24.2.1_fbce0b92791534a2339c16931a73350ad80faa0f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_e25e6a21aa9c800d842c5e25a93ba1441f8bd7d7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-24.2.1_fd58ebfbea88f45b7b1bf76c008839840feb2d4e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-24.2.1_08442be637c4d2aa0a4591a2998dcc226a0bf0a1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_0017fb4be4caa81e97bab0784caaa686c5b8d69e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="42d6eca8549390395157cfa2d42d366c32a020ba">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_6f04c29e2e56602371e41beb4e787673aa7dfc8c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_0069216ecf4264bb96f262f97887ebeb0d6b70e9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_dbfe9a5809293d2bb2ab327e352d47c9d7f9555f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-24.2.1_e1d4ac38c2ed4be75c02fa9115e05953bea7de17/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-24.2.1_e6a800182bde7e74e85e927fa547476ed26db620/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-24.2.1_763be58c2d33f4a248203b405cc243acfea6f120/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-24.2.1_e366fc65a151b48f2bcccfda493fdf17d1bfc687/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="836018c5a6d9e5d2abd73e416f3696d04b7a7525">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_42e93eb96d4acd16e62a9fc265bc3bf06b8d634d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-24.2.1_68e9f46f8e9de9f16e42260525720ff64d7ba1bb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-24.2.1_3bf79e49edf7422b9b98deb1bd11f76d90067cca/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-24.2.1_7c52ec2be618e1e8d5c7db87b25d336252bcacbf/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-24.2.1_24a98d5c7884f720cea038b70cf82df18bd213c3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="/home/bi00dsh0t/source/Televeyes/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_4cff8bfc05c421ebfea6e93180c4f17f7b6bca31/classes.dex" />
+    </item>
+
+</items>
