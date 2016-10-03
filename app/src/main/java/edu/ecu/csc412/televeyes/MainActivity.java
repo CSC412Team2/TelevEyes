@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -133,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
             // getItem is called to instantiate the fragment for the given page.
             // Return the corresponding fragment depending on position.
             switch (position) {
-                case 0:
+                case 1:
                     return ShowFragment.newInstance(1);
                 default:
                     return PlaceholderFragment.newInstance(position + 1);
@@ -150,11 +149,11 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "TV Shows";
+                    return "Search";
                 case 1:
-                    return "Updates";
+                    return "TV Shows";
                 case 2:
-                    return "Discover";
+                    return "Notifications";
             }
             return null;
         }
