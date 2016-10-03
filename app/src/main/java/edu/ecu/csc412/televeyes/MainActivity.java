@@ -18,7 +18,10 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import java.util.List;
+
 import edu.ecu.csc412.televeyes.dummy.DummyContent;
+import edu.ecu.csc412.televeyes.json.Series;
 
 public class MainActivity extends AppCompatActivity implements ShowFragment.OnListFragmentInteractionListener{
 
@@ -52,16 +55,6 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
     }
 
 
@@ -88,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(Series item) {
 
     }
 

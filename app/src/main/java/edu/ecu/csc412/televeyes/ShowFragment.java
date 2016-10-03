@@ -9,11 +9,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import edu.ecu.csc412.televeyes.dummy.DummyContent;
-import edu.ecu.csc412.televeyes.dummy.DummyContent.DummyItem;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
+
+import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
+import edu.ecu.csc412.televeyes.view.VerticalSpaceItemDecoration;
+import edu.ecu.csc412.televeyes.adapter.ShowRecyclerViewAdapter;
+import edu.ecu.csc412.televeyes.json.Series;
+
+import static edu.ecu.csc412.televeyes.tv.TVMaze.schedule;
 
 /**
  * A fragment representing a list of Items.
@@ -22,12 +35,18 @@ import java.util.List;
  * interface.
  */
 public class ShowFragment extends Fragment {
-
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+
+    private static RequestQueue requestQueue;
+
+    private List<Series> shows;
+
+    private Gson gson;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -53,6 +72,9 @@ public class ShowFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        if(gson == null) gson = new Gson();
+        requestQueue = VolleySingleton.getInstance().getRequestQueue();
     }
 
     @Override
@@ -69,7 +91,9 @@ public class ShowFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new ShowRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+
+            recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
+            refreshShows();
         }
         return view;
     }
@@ -92,6 +116,33 @@ public class ShowFragment extends Fragment {
         mListener = null;
     }
 
+    private void refreshShows(){
+        StringRequest request = new StringRequest(schedule, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Type collectionType = new TypeToken<List<Series>>(){}.getType();
+                shows = gson.fromJson(response, collectionType);
+
+                //Truncate the results to 15 for now
+                while(shows.size() > 15) shows.remove(shows.size() - 1);
+
+                RecyclerView view = (RecyclerView) getView();
+
+                if(view != null) {
+                    view.setAdapter(new ShowRecyclerViewAdapter(shows, mListener));
+                    view.invalidate();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                refreshShows();
+            }
+        });
+        requestQueue.add(request);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -104,6 +155,6 @@ public class ShowFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Series item);
     }
 }
