@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import edu.ecu.csc412.televeyes.json.Series;
+import edu.ecu.csc412.televeyes.view.SlidingTabLayout;
 
 public class MainActivity extends AppCompatActivity implements ShowFragment.OnListFragmentInteractionListener {
 
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -47,7 +50,9 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
+        SlidingTabLayout tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+        tabs.setDistributeEvenly(true);
+        tabs.setViewPager(mViewPager);
     }
 
 

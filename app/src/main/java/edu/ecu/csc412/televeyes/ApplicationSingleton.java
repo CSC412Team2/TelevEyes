@@ -7,11 +7,11 @@ import android.content.Context;
  * Created by joshu on 10/3/2016.
  */
 
-public class SingletonApp extends Application {
-    private static SingletonApp mInstance;
+public class ApplicationSingleton extends Application {
+    private static ApplicationSingleton mInstance;
     private static Context mAppContext;
 
-    public static SingletonApp getInstance() {
+    public static ApplicationSingleton getInstance() {
         return mInstance;
     }
 
