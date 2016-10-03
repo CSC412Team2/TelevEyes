@@ -1,29 +1,22 @@
 package edu.ecu.csc412.televeyes;
 
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
 
-import java.util.List;
-
-import edu.ecu.csc412.televeyes.dummy.DummyContent;
 import edu.ecu.csc412.televeyes.json.Series;
 
-public class MainActivity extends AppCompatActivity implements ShowFragment.OnListFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements ShowFragment.OnListFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -134,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return the corresponding fragment depending on position.
-            switch(position) {
+            switch (position) {
                 case 0:
                     return ShowFragment.newInstance(1);
                 default:

@@ -1,6 +1,8 @@
 package edu.ecu.csc412.televeyes.adapter;
 
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +11,14 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
+import java.util.List;
+
 import edu.ecu.csc412.televeyes.R;
 import edu.ecu.csc412.televeyes.ShowFragment.OnListFragmentInteractionListener;
 import edu.ecu.csc412.televeyes.VolleySingleton;
 import edu.ecu.csc412.televeyes.dummy.DummyContent.DummyItem;
 import edu.ecu.csc412.televeyes.json.Image;
 import edu.ecu.csc412.televeyes.json.Series;
-
-import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
@@ -48,11 +50,15 @@ public class ShowRecyclerViewAdapter extends RecyclerView.Adapter<ShowRecyclerVi
         holder.mItem = mValues.get(position);
         //holder.mIdView.setText(mValues.get(position).name);
         holder.mTitleView.setText(mValues.get(position).show.name);
-        holder.mSummaryView.setText(mValues.get(position).show.summary);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            holder.mSummaryView.setText(Html.fromHtml(mValues.get(position).show.summary, Html.FROM_HTML_MODE_COMPACT).toString());
+        } else {
+            holder.mSummaryView.setText(Html.fromHtml(mValues.get(position).show.summary).toString());
+        }
 
         Image image = mValues.get(position).show.image;
 
-        if(image != null) {
+        if (image != null) {
             String url = mValues.get(position).show.image.medium != null ? mValues.get(position).show.image.medium : mValues.get(position).show.image.original != null ? mValues.get(position).show.image.original : null;
 
             if (url != null) {

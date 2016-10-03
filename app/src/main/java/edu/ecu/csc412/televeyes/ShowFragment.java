@@ -21,10 +21,9 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
-import edu.ecu.csc412.televeyes.view.VerticalSpaceItemDecoration;
 import edu.ecu.csc412.televeyes.adapter.ShowRecyclerViewAdapter;
 import edu.ecu.csc412.televeyes.json.Series;
+import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
 
 import static edu.ecu.csc412.televeyes.tv.TVMaze.schedule;
 
@@ -37,12 +36,10 @@ import static edu.ecu.csc412.televeyes.tv.TVMaze.schedule;
 public class ShowFragment extends Fragment {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private static RequestQueue requestQueue;
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-
-    private static RequestQueue requestQueue;
-
     private List<Series> shows;
 
     private Gson gson;
@@ -73,7 +70,7 @@ public class ShowFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-        if(gson == null) gson = new Gson();
+        if (gson == null) gson = new Gson();
         requestQueue = VolleySingleton.getInstance().getRequestQueue();
     }
 
@@ -116,19 +113,20 @@ public class ShowFragment extends Fragment {
         mListener = null;
     }
 
-    private void refreshShows(){
+    private void refreshShows() {
         StringRequest request = new StringRequest(schedule, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Type collectionType = new TypeToken<List<Series>>(){}.getType();
+                Type collectionType = new TypeToken<List<Series>>() {
+                }.getType();
                 shows = gson.fromJson(response, collectionType);
 
                 //Truncate the results to 15 for now
-                while(shows.size() > 15) shows.remove(shows.size() - 1);
+                while (shows.size() > 15) shows.remove(shows.size() - 1);
 
                 RecyclerView view = (RecyclerView) getView();
 
-                if(view != null) {
+                if (view != null) {
                     view.setAdapter(new ShowRecyclerViewAdapter(shows, mListener));
                     view.invalidate();
                 }

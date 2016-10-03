@@ -1,4 +1,3 @@
-
 package edu.ecu.csc412.televeyes.json;
 
 import com.google.gson.annotations.Expose;

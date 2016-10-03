@@ -7,9 +7,21 @@ import android.content.Context;
  * Created by joshu on 10/3/2016.
  */
 
-public class SingletonApp extends Application{
+public class SingletonApp extends Application {
     private static SingletonApp mInstance;
     private static Context mAppContext;
+
+    public static SingletonApp getInstance() {
+        return mInstance;
+    }
+
+    public static Context getAppContext() {
+        return mAppContext;
+    }
+
+    public void setAppContext(Context mAppContext) {
+        this.mAppContext = mAppContext;
+    }
 
     @Override
     public void onCreate() {
@@ -17,15 +29,5 @@ public class SingletonApp extends Application{
         mInstance = this;
 
         this.setAppContext(getApplicationContext());
-    }
-
-    public static SingletonApp getInstance(){
-        return mInstance;
-    }
-    public static Context getAppContext() {
-        return mAppContext;
-    }
-    public void setAppContext(Context mAppContext) {
-        this.mAppContext = mAppContext;
     }
 }
