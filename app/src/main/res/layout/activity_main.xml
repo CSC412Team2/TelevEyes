@@ -27,7 +27,8 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:logo="@mipmap/ic_launcher">
 
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
