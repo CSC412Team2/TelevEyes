@@ -1,3 +1,4 @@
 This is the readme. Will be updated at a later time to include more instructions
 
 <a><img src="https://raw.githubusercontent.com/CSC412Team2/TelevEyes/master/screenshot.png" align="left" height="800"></a>
+<a><img src="https://raw.githubusercontent.com/CSC412Team2/TelevEyes/master/screenshot_search.png" align="left" height="800"></a>
