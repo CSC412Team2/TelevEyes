@@ -1,5 +1,7 @@
 package edu.ecu.csc412.televeyes;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -59,6 +62,12 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
         return true;
     }
 
@@ -69,9 +78,11 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(id){
+            case R.id.action_settings:
+                return true;
+            case R.id.action_search:
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -132,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
             // getItem is called to instantiate the fragment for the given page.
             // Return the corresponding fragment depending on position.
             switch (position) {
-                case 1:
+                case 0:
                     return ShowFragment.newInstance(1);
                 default:
                     return PlaceholderFragment.newInstance(position + 1);
@@ -149,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Search";
+                    return "Discover";
                 case 1:
                     return "TV Shows";
                 case 2:
