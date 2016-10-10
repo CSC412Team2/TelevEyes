@@ -23,6 +23,7 @@ import java.util.List;
 
 import edu.ecu.csc412.televeyes.adapter.ShowRecyclerViewAdapter;
 import edu.ecu.csc412.televeyes.json.Series;
+import edu.ecu.csc412.televeyes.tv.TVMaze;
 import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
 
 import static edu.ecu.csc412.televeyes.tv.TVMaze.schedule;
@@ -36,13 +37,9 @@ import static edu.ecu.csc412.televeyes.tv.TVMaze.schedule;
 public class ShowFragment extends Fragment {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private static RequestQueue requestQueue;
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private List<Series> shows;
-
-    private Gson gson;
 
 
     /**
@@ -69,9 +66,6 @@ public class ShowFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-
-        if (gson == null) gson = new Gson();
-        requestQueue = VolleySingleton.getInstance().getRequestQueue();
     }
 
     @Override
@@ -114,20 +108,13 @@ public class ShowFragment extends Fragment {
     }
 
     private void refreshShows() {
-        StringRequest request = new StringRequest(schedule, new Response.Listener<String>() {
+        TVMaze.getInstance().getSchedule(15, new TVMaze.OnScheduleListener() {
             @Override
-            public void onResponse(String response) {
-                Type collectionType = new TypeToken<List<Series>>() {
-                }.getType();
-                shows = gson.fromJson(response, collectionType);
-
-                //Truncate the results to 15 for now
-                while (shows.size() > 15) shows.remove(shows.size() - 1);
-
+            public void onResults(List<Series> series) {
                 RecyclerView view = (RecyclerView) getView();
 
                 if (view != null) {
-                    view.setAdapter(new ShowRecyclerViewAdapter(shows, mListener));
+                    view.setAdapter(new ShowRecyclerViewAdapter(series, mListener));
                     view.invalidate();
                 }
             }
@@ -138,7 +125,6 @@ public class ShowFragment extends Fragment {
                 refreshShows();
             }
         });
-        requestQueue.add(request);
     }
 
     /**
