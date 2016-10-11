@@ -7,10 +7,10 @@ public class Externals {
 
     @SerializedName("tvrage")
     @Expose
-    public Object tvrage;
+    public String tvrage;
     @SerializedName("thetvdb")
     @Expose
-    public Integer thetvdb;
+    public String thetvdb;
     @SerializedName("imdb")
     @Expose
     public String imdb;

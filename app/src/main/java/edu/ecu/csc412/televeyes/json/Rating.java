@@ -9,6 +9,6 @@ public class Rating {
 
     @SerializedName("average")
     @Expose
-    public Object average;
+    public double average;
 
 }

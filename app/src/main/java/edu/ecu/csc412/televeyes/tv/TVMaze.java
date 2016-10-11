@@ -56,8 +56,9 @@ public class TVMaze {
                 List<Series> shows = gson.fromJson(response, collectionType);
 
                 //Truncate the results
-                while (shows.size() > maxResults) shows.remove(shows.size() - 1);
+                truncateResults(shows, maxResults);
 
+                //results are sent to the Listener
                 onScheduleListener.onResults(shows);
             }
         }, errorListener);
@@ -65,7 +66,6 @@ public class TVMaze {
     }
 
     /**
-     *
      * @param query Search query
      * @param maxResults maximum number of results to return
      * @param onShowSearchListener what to do once the results are returned
@@ -80,17 +80,21 @@ public class TVMaze {
                 List<ShowContainer> shows = gson.fromJson(response, collectionType);
 
                 //Truncate the results
-                while (shows.size() > maxResults) shows.remove(shows.size() - 1);
+                truncateResults(shows, maxResults);
 
+                //results are sent to the listener
                 onShowSearchListener.onResults(shows);
             }
         }, errorListener);
         requestQueue.add(request);
     }
 
+    private void truncateResults(List<?> list, int num){
+        while(list.size() > num) list.remove(list.size() - 1);
+    }
+
     public interface OnScheduleListener{
         /**
-         *
          * @param series a list of objects containing the results
          */
         void onResults(List<Series> series);
@@ -99,7 +103,6 @@ public class TVMaze {
     public interface OnShowSearchListener{
 
         /**
-         *
          * @param shows a list of objects containing the results
          */
         void onResults(List<ShowContainer> shows);
