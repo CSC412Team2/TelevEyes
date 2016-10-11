@@ -75,7 +75,9 @@ public class ShowFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_show_list, container, false);
 
-        // Set the adapter
+        /**
+         * set the adapter
+         */
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
@@ -109,12 +111,17 @@ public class ShowFragment extends Fragment {
         mListener = null;
     }
 
+    /**
+     * Refresh show list
+     */
     private void refreshShows() {
         TVMaze.getInstance().getSchedule(15, new TVMaze.OnScheduleListener() {
             @Override
             public void onResults(List<Series> series) {
+                //Get the list view
                 RecyclerView view = (RecyclerView) getView();
 
+                //If the list view isn't null then set a new adapter
                 if (view != null) {
                     view.setAdapter(new ShowRecyclerViewAdapter(series, mListener));
                     view.invalidate();

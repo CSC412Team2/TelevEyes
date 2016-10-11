@@ -4,6 +4,7 @@ package edu.ecu.csc412.televeyes;
  * Created by joshu on 10/3/2016.
  */
 
+import android.app.Application;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 
