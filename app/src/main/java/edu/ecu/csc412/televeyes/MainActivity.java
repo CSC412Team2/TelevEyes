@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         final SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchSrcTextView = (SearchView.SearchAutoComplete) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-        searchSrcTextView.setThreshold(0);
+        searchSrcTextView.setThreshold(1);
 
         searchSrcTextView.setDropDownBackgroundResource(android.R.drawable.screen_background_light);
 
