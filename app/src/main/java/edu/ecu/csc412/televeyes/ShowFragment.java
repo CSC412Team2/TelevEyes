@@ -41,6 +41,8 @@ public class ShowFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
+    private Gson gson;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the

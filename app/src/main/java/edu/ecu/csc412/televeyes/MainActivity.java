@@ -1,8 +1,14 @@
 package edu.ecu.csc412.televeyes;
 
 import android.app.SearchManager;
+import android.app.SearchableInfo;
+import android.content.ComponentName;
 import android.content.Context;
+import android.database.MatrixCursor;
+import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,10 +22,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.ecu.csc412.televeyes.adapter.SuggestionAdapter;
 import edu.ecu.csc412.televeyes.json.Series;
+import edu.ecu.csc412.televeyes.json.ShowContainer;
+import edu.ecu.csc412.televeyes.tv.TVMaze;
 import edu.ecu.csc412.televeyes.view.SlidingTabLayout;
+
+import static edu.ecu.csc412.televeyes.tv.TVMaze.multiSearch;
 
 public class MainActivity extends AppCompatActivity implements ShowFragment.OnListFragmentInteractionListener {
 
@@ -37,6 +61,15 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private List<ShowContainer> shows;
+    private Gson gson;
+    private RequestQueue requestQueue;
+    SearchView.SearchAutoComplete searchSrcTextView;
+
+    private static final String[] sAutocompleteColNames = new String[] {
+            BaseColumns._ID,                         // necessary for adapter
+            SearchManager.SUGGEST_COLUMN_TEXT_1      // the full search term
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +88,9 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
         SlidingTabLayout tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true);
         tabs.setViewPager(mViewPager);
+
+        requestQueue = VolleySingleton.getInstance().getRequestQueue();
+        gson = new Gson();
     }
 
 
@@ -63,11 +99,65 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        SearchManager searchManager =
+        final SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        final SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchSrcTextView = (SearchView.SearchAutoComplete) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchSrcTextView.setThreshold(0);
 
+        searchSrcTextView.setDropDownBackgroundResource(android.R.drawable.screen_background_light);
+
+        searchSrcTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                return;
+            }
+        });
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchActivity.class)));
+        final View dropDownAnchor = searchView.findViewById(searchSrcTextView.getDropDownAnchor());
+
+
+        if (dropDownAnchor != null) {
+            dropDownAnchor.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                @Override
+                public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                                           int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                searchSrcTextView.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+                }
+            });
+        }
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                TVMaze.getInstance().showSearch(query, 10, new TVMaze.OnShowSearchListener() {
+                    @Override
+                    public void onResults(List<ShowContainer> shows) {
+                        List<String> items = new ArrayList<String>();
+
+                        for (int i = 0; i < shows.size(); i++) {
+                            items.add(shows.get(i).show.name);
+                        }
+
+                        //Show names are shown here
+                        searchSrcTextView.setAdapter(new SuggestionAdapter<>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, items));
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return false;
+            }
+        });
         return true;
     }
 
