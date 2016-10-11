@@ -40,6 +40,7 @@ import java.util.List;
 import edu.ecu.csc412.televeyes.adapter.SuggestionAdapter;
 import edu.ecu.csc412.televeyes.json.Series;
 import edu.ecu.csc412.televeyes.json.ShowContainer;
+import edu.ecu.csc412.televeyes.tv.TVMaze;
 import edu.ecu.csc412.televeyes.view.SlidingTabLayout;
 
 import static edu.ecu.csc412.televeyes.tv.TVMaze.multiSearch;
@@ -136,36 +137,24 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
 
             @Override
             public boolean onQueryTextChange(String query) {
-                StringRequest request = new StringRequest(multiSearch + query, new Response.Listener<String>() {
+                TVMaze.getInstance().showSearch(query, 10, new TVMaze.OnShowSearchListener() {
                     @Override
-                    public void onResponse(String response) {
-                        Type collectionType = new TypeToken<List<ShowContainer>>() {
-                        }.getType();
-
-                        //Parse response from database into a list of shows
-                        shows = gson.fromJson(response, collectionType);
-
+                    public void onResults(List<ShowContainer> shows) {
                         List<String> items = new ArrayList<String>();
 
-                        for(int i = 0; i < shows.size(); i++){
+                        for (int i = 0; i < shows.size(); i++) {
                             items.add(shows.get(i).show.name);
                         }
 
-
                         //Show names are shown here
                         searchSrcTextView.setAdapter(new SuggestionAdapter<>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, items));
-
-                        //Write code to display search results down here
-
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplicationContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        //Display an error message
                     }
                 });
-                requestQueue.add(request);
                 return false;
             }
         });
