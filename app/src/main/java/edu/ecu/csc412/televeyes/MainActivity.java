@@ -1,19 +1,14 @@
 package edu.ecu.csc412.televeyes;
 
 import android.app.SearchManager;
-import android.app.SearchableInfo;
 import android.content.ComponentName;
 import android.content.Context;
-import android.database.MatrixCursor;
-import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -29,23 +24,18 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.ecu.csc412.televeyes.adapter.SuggestionAdapter;
-import edu.ecu.csc412.televeyes.json.Series;
 import edu.ecu.csc412.televeyes.json.ShowContainer;
+import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
 import edu.ecu.csc412.televeyes.view.SlidingTabLayout;
 
-import static edu.ecu.csc412.televeyes.tv.TVMaze.multiSearch;
-
-public class MainActivity extends AppCompatActivity implements ShowFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements DiscoverFragment.OnListFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -66,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
     private RequestQueue requestQueue;
     SearchView.SearchAutoComplete searchSrcTextView;
 
-    private static final String[] sAutocompleteColNames = new String[] {
+    private static final String[] sAutocompleteColNames = new String[]{
             BaseColumns._ID,                         // necessary for adapter
             SearchManager.SUGGEST_COLUMN_TEXT_1      // the full search term
     };
@@ -91,6 +81,9 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
 
         requestQueue = VolleySingleton.getInstance().getRequestQueue();
         gson = new Gson();
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
 
@@ -103,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         final SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchSrcTextView = (SearchView.SearchAutoComplete) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-        searchSrcTextView.setThreshold(1);
+        searchSrcTextView.setThreshold(0);
 
         searchSrcTextView.setDropDownBackgroundResource(android.R.drawable.screen_background_light);
 
@@ -117,16 +110,14 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
         searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchActivity.class)));
         final View dropDownAnchor = searchView.findViewById(searchSrcTextView.getDropDownAnchor());
 
-
-        if (dropDownAnchor != null) {
-            dropDownAnchor.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-                @Override
-                public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                           int oldLeft, int oldTop, int oldRight, int oldBottom) {
+        dropDownAnchor.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 searchSrcTextView.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-                }
-            });
-        }
+                searchSrcTextView.setDropDownHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+            }
+        });
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -139,11 +130,11 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
             public boolean onQueryTextChange(String query) {
                 TVMaze.getInstance().showSearch(query, 10, new TVMaze.OnShowSearchListener() {
                     @Override
-                    public void onResults(List<ShowContainer> shows) {
+                    public void onResults(List<Show> shows) {
                         List<String> items = new ArrayList<String>();
 
                         for (int i = 0; i < shows.size(); i++) {
-                            items.add(shows.get(i).show.name);
+                            items.add(shows.get(i).getName());
                         }
 
                         //Show names are shown here
@@ -168,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        switch(id){
+        switch (id) {
             case R.id.action_settings:
                 return true;
             case R.id.action_search:
@@ -179,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
     }
 
     @Override
-    public void onListFragmentInteraction(Series item) {
+    public void onListFragmentInteraction(Show item) {
 
     }
 
@@ -234,6 +225,8 @@ public class MainActivity extends AppCompatActivity implements ShowFragment.OnLi
             // Return the corresponding fragment depending on position.
             switch (position) {
                 case 0:
+                    return DiscoverFragment.newInstance(1);
+                case 1:
                     return ShowFragment.newInstance(1);
                 default:
                     return PlaceholderFragment.newInstance(position + 1);

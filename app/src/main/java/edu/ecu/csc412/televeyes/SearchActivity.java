@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -17,13 +18,13 @@ import com.android.volley.VolleyError;
 import java.util.List;
 
 import edu.ecu.csc412.televeyes.adapter.SearchAdapter;
-import edu.ecu.csc412.televeyes.adapter.ShowRecyclerViewAdapter;
-import edu.ecu.csc412.televeyes.json.ShowContainer;
+import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
 
 public class SearchActivity extends AppCompatActivity {
 
     private RecyclerView view;
+    private TextView searchLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,8 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         handleIntent(getIntent());
     }
 
@@ -56,15 +59,17 @@ public class SearchActivity extends AppCompatActivity {
     private void handleIntent(Intent intent) {
 
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
+            final String query = intent.getStringExtra(SearchManager.QUERY);
+            searchLabel = (TextView) findViewById(R.id.results_label);
             TVMaze.getInstance().showSearch(query, 25, new TVMaze.OnShowSearchListener() {
                 @Override
-                public void onResults(List<ShowContainer> shows) {
+                public void onResults(List<Show> shows) {
                     view = (RecyclerView) findViewById(R.id.search_resuts);
                     if (view != null) {
-                        view.setAdapter(new SearchAdapter(shows));
+                        view.setAdapter(new SearchAdapter(shows, getApplicationContext()));
                         view.invalidate();
                     }
+                    searchLabel.setText("Showing " + shows.size() + " results for \"" + query + "\"");
                 }
             }, new Response.ErrorListener() {
                 @Override

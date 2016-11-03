@@ -14,9 +14,8 @@ import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.DiscoverFragment.OnListFragmentInteractionListener;
 import edu.ecu.csc412.televeyes.R;
-import edu.ecu.csc412.televeyes.ShowFragment;
+import edu.ecu.csc412.televeyes.DiscoverFragment.OnListFragmentInteractionListener;
 import edu.ecu.csc412.televeyes.VolleySingleton;
 import edu.ecu.csc412.televeyes.dummy.DummyContent.DummyItem;
 import edu.ecu.csc412.televeyes.model.Show;
@@ -26,23 +25,22 @@ import edu.ecu.csc412.televeyes.model.Show;
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class ShowRecyclerViewAdapter extends RecyclerView.Adapter<ShowRecyclerViewAdapter.ViewHolder> {
+public class DiscoverRecyclerViewAdapter extends RecyclerView.Adapter<DiscoverRecyclerViewAdapter.ViewHolder> {
 
     private final List<Show> mValues;
-    private final ShowFragment.OnListFragmentInteractionListener mListener;
+    private final OnListFragmentInteractionListener mListener;
     private ImageLoader mImageLoader;
 
-    public ShowRecyclerViewAdapter(List<Show> items, ShowFragment.OnListFragmentInteractionListener listener) {
+    public DiscoverRecyclerViewAdapter(List<Show> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
 
         mImageLoader = VolleySingleton.getInstance().getImageLoader();
     }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_show, parent, false);
+                .inflate(R.layout.list_item_discover_show, parent, false);
         return new ViewHolder(view);
     }
 
@@ -50,6 +48,11 @@ public class ShowRecyclerViewAdapter extends RecyclerView.Adapter<ShowRecyclerVi
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mTitleView.setText(mValues.get(position).getName());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            //holder.mSummaryView.setText(Html.fromHtml(mValues.get(position).show.summary, Html.FROM_HTML_MODE_COMPACT).toString());
+        } else {
+            //holder.mSummaryView.setText(Html.fromHtml(mValues.get(position).show.summary).toString());
+        }
 
             String url = mValues.get(position).getImage();
 

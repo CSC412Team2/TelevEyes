@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 import java.util.List;
 
 import edu.ecu.csc412.televeyes.adapter.DiscoverRecyclerViewAdapter;
-import edu.ecu.csc412.televeyes.adapter.ShowRecyclerViewAdapter;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
 import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
@@ -29,27 +28,25 @@ import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ShowFragment extends Fragment {
+public class DiscoverFragment extends Fragment {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private ShowFragment.OnListFragmentInteractionListener mListener;
-
-    private Gson gson;
+    private OnListFragmentInteractionListener mListener;
 
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ShowFragment() {
+    public DiscoverFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ShowFragment newInstance(int columnCount) {
-        ShowFragment fragment = new ShowFragment();
+    public static DiscoverFragment newInstance(int columnCount) {
+        DiscoverFragment fragment = new DiscoverFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -68,7 +65,7 @@ public class ShowFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_show_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_discover_list, container, false);
 
         /**
          * set the adapter
@@ -95,8 +92,8 @@ public class ShowFragment extends Fragment {
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
-            /*throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");*/
+            throw new RuntimeException(context.toString()
+                    + " must implement OnListFragmentInteractionListener");
         }
     }
 
@@ -118,7 +115,7 @@ public class ShowFragment extends Fragment {
 
                 //If the list view isn't null then set a new adapter
                 if (view != null) {
-                    view.setAdapter(new ShowRecyclerViewAdapter(shows, mListener));
+                    view.setAdapter(new DiscoverRecyclerViewAdapter(shows, mListener));
                     view.invalidate();
                 }
             }
