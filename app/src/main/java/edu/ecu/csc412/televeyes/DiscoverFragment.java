@@ -13,11 +13,10 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.adapter.DiscoverRecyclerViewAdapter;
+import edu.ecu.csc412.televeyes.adapter.RecyclerViewAdapter;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
 import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
@@ -115,7 +114,7 @@ public class DiscoverFragment extends Fragment {
 
                 //If the list view isn't null then set a new adapter
                 if (view != null) {
-                    view.setAdapter(new DiscoverRecyclerViewAdapter(shows, mListener));
+                    view.setAdapter(new RecyclerViewAdapter(shows, mListener, RecyclerViewAdapter.ListType.DISCOVER, getActivity().getApplicationContext()));
                     view.invalidate();
                 }
             }

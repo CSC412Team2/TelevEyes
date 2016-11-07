@@ -26,7 +26,7 @@ public class Show {
     public String language;
     @SerializedName("genres")
     @Expose
-    public List<Object> genres = new ArrayList<Object>();
+    public List<String> genres = new ArrayList<String>();
     @SerializedName("status")
     @Expose
     public String status;

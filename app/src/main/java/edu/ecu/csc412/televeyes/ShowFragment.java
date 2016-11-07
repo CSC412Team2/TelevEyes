@@ -13,30 +13,26 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.adapter.DiscoverRecyclerViewAdapter;
-import edu.ecu.csc412.televeyes.adapter.ShowRecyclerViewAdapter;
+import edu.ecu.csc412.televeyes.adapter.RecyclerViewAdapter;
+import edu.ecu.csc412.televeyes.database.DatabaseHelper;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
 import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
-public class ShowFragment extends Fragment {
+
+public class ShowFragment extends Fragment implements DiscoverFragment.OnListFragmentInteractionListener{
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private ShowFragment.OnListFragmentInteractionListener mListener;
 
-    private Gson gson;
+    private static DatabaseHelper databaseHelper;
+
+    private RecyclerViewAdapter adapter;
 
 
     /**
@@ -48,11 +44,12 @@ public class ShowFragment extends Fragment {
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ShowFragment newInstance(int columnCount) {
+    public static ShowFragment newInstance(Context context, int columnCount) {
         ShowFragment fragment = new ShowFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
+        ShowFragment.databaseHelper = DatabaseHelper.getInstance(context);
         return fragment;
     }
 
@@ -82,6 +79,18 @@ public class ShowFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
+            List<Show> items = new ArrayList<>();
+
+            //If the list view isn't null then set a new adapter
+            if (view != null) {
+                adapter = new RecyclerViewAdapter(items, this, RecyclerViewAdapter.ListType.SAVES, getActivity().getApplicationContext());
+
+                recyclerView.setAdapter(adapter);
+                view.invalidate();
+            }
+
+
+
             recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
             refreshShows();
         }
@@ -92,57 +101,36 @@ public class ShowFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            /*throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");*/
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     /**
      * Refresh show list
      */
     private void refreshShows() {
-        TVMaze.getInstance().getSchedule(15, new TVMaze.OnShowSearchListener() {
-            @Override
-            public void onResults(List<Show> shows) {
-                //Get the list view
-                RecyclerView view = (RecyclerView) getView();
+        List<Integer> showIds = databaseHelper.getShowIds();
 
-                //If the list view isn't null then set a new adapter
-                if (view != null) {
-                    view.setAdapter(new ShowRecyclerViewAdapter(shows, mListener));
-                    view.invalidate();
+        for(int i = 0; i < showIds.size(); i++){
+            TVMaze.getInstance().getShowFromId(showIds.get(i), new TVMaze.OnShowLookupListener() {
+                @Override
+                public void onResult(Show show) {
+                    adapter.addShow(show);
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                refreshShows();
-            }
-        });
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(Show item);
+    @Override
+    public void onListFragmentInteraction(Show item) {
+
     }
 }

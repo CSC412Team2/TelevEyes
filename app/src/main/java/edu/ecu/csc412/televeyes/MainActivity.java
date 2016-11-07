@@ -164,6 +164,9 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
                 return true;
             case R.id.action_search:
                 break;
+            case R.id.action_filter:
+
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -227,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
                 case 0:
                     return DiscoverFragment.newInstance(1);
                 case 1:
-                    return ShowFragment.newInstance(1);
+                    return ShowFragment.newInstance(getApplicationContext(), 1);
                 default:
                     return PlaceholderFragment.newInstance(position + 1);
             }

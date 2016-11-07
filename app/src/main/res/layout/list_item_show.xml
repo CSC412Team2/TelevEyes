@@ -22,4 +22,5 @@
             android:textStyle="normal|bold"
             android:layout_toRightOf="@id/showimage" />
 
+
 </RelativeLayout>

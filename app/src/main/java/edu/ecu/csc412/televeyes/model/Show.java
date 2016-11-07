@@ -19,13 +19,14 @@ public class Show {
     private Schedule schedule;
     private int numberOfEpisodes;
     private double rating;
+    private List<String> genres;
 
     //TODO add suppport for multiple images
     private String image;
 
     private Show(){}
 
-    public Show(int id, String name, String summary, edu.ecu.csc412.televeyes.json.Schedule schedule, int episodes, double rating, String image){
+    public Show(int id, String name, String summary, edu.ecu.csc412.televeyes.json.Schedule schedule, int episodes, double rating, String image, List<String> genres){
         this.id = id;
         this.name = name;
         this.summary = summary;
@@ -33,6 +34,20 @@ public class Show {
         this.numberOfEpisodes = episodes;
         this.rating = rating;
         this.image = image;
+        this.genres = genres;
+    }
+
+    public Show(edu.ecu.csc412.televeyes.json.Show show){
+        this.id = show.id;
+        this.name = show.name;
+        this.summary = show.summary;
+        this.schedule = new Schedule(show.schedule);
+        this.rating = show.rating.average;
+        if(show.image.medium != null) {
+            this.image = show.image.medium;
+        } else {
+            this.image = show.image.original;
+        }
     }
 
     public Show(ShowContainer container){
@@ -42,6 +57,7 @@ public class Show {
         this.schedule = new Schedule(container.show.schedule);
         this.numberOfEpisodes = -1;
         this.rating = container.score;
+        this.genres = container.show.genres;
 
         if(container.show.image.medium != null) {
             this.image = container.show.image.medium;
@@ -51,7 +67,7 @@ public class Show {
     }
 
     public Show(Series series){
-        this.id = series.id;
+        this.id = series.show.id;
         this.name = series.show.name;
         this.summary = series.summary;
         this.schedule = new Schedule(series.show.schedule);
@@ -63,6 +79,10 @@ public class Show {
         } else {
             this.image = series.show.image.original;
         }
+    }
+
+    public List<String> getGenres(){
+        return genres;
     }
 
     public int getId(){

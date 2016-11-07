@@ -17,11 +17,11 @@ import com.android.volley.VolleyError;
 
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.adapter.SearchAdapter;
+import edu.ecu.csc412.televeyes.adapter.RecyclerViewAdapter;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements DiscoverFragment.OnListFragmentInteractionListener{
 
     private RecyclerView view;
     private TextView searchLabel;
@@ -61,12 +61,14 @@ public class SearchActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             final String query = intent.getStringExtra(SearchManager.QUERY);
             searchLabel = (TextView) findViewById(R.id.results_label);
+
+            final SearchActivity searchActivity = this;
             TVMaze.getInstance().showSearch(query, 25, new TVMaze.OnShowSearchListener() {
                 @Override
                 public void onResults(List<Show> shows) {
                     view = (RecyclerView) findViewById(R.id.search_resuts);
                     if (view != null) {
-                        view.setAdapter(new SearchAdapter(shows, getApplicationContext()));
+                        view.setAdapter(new RecyclerViewAdapter(shows, searchActivity, RecyclerViewAdapter.ListType.SEARCH, getApplicationContext()));
                         view.invalidate();
                     }
                     searchLabel.setText("Showing " + shows.size() + " results for \"" + query + "\"");
@@ -80,5 +82,10 @@ public class SearchActivity extends AppCompatActivity {
 
             });
         }
+    }
+
+    @Override
+    public void onListFragmentInteraction(Show item) {
+
     }
 }

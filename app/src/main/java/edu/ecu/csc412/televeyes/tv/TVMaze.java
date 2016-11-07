@@ -105,12 +105,12 @@ public class TVMaze {
     }
 
     public void getShowFromId(int Id, final OnShowLookupListener onShowLookupListener, Response.ErrorListener errorListener){
-        StringRequest request = new StringRequest(lookup, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(lookup + Id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Show show = gson.fromJson(response, Show.class);
+                edu.ecu.csc412.televeyes.json.Show show = gson.fromJson(response, edu.ecu.csc412.televeyes.json.Show.class);
                 //results are sent to the listener
-                onShowLookupListener.onResult(show);
+                onShowLookupListener.onResult(new Show(show));
             }
         }, errorListener);
         requestQueue.add(request);

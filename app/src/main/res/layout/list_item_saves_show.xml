@@ -22,26 +22,14 @@
             android:textStyle="normal|bold"
             android:layout_toRightOf="@id/showimage" />
 
-        <TextView
-            android:id="@+id/summary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:textAppearance="?attr/textAppearanceListItemSmall"
-            android:textSize="12sp"
-            android:layout_below="@id/title"
-            android:layout_toRightOf="@id/showimage"
-            android:ellipsize="end"
-            android:maxLines="2" />
-
-    <ImageView
-        android:id="@+id/add_view"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|right"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
         android:layout_centerVertical="true"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:layout_marginRight="20dp" />
+        android:id="@+id/countdown_timer"
+        android:text="holder"/>
+
+
 </RelativeLayout>

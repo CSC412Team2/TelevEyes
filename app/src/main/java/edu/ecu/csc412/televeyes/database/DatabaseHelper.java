@@ -3,6 +3,7 @@ package edu.ecu.csc412.televeyes.database;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import com.android.volley.VolleyError;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ecu.csc412.televeyes.VolleySingleton;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
 
@@ -47,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_CREDENTIALS_TABLE = "CREATE TABLE " + TABLE_SHOWS + "("
+        String CREATE_CREDENTIALS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_SHOWS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY)";
         db.execSQL(CREATE_CREDENTIALS_TABLE);
     }
@@ -68,28 +70,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String insert = "INSERT INTO " + TABLE_SHOWS
                 + "(" + KEY_ID + ") VALUES (" + show.getId() + ")";
-        db.execSQL(insert);
+
+        try {
+            db.execSQL(insert);
+        } catch (SQLiteConstraintException e){
+
+        }
     }
 
-    public List<Show> getShows(){
+    public List<Integer> getShowIds(){
         SQLiteDatabase db = this.getReadableDatabase();
-        final List<Show> shows = new ArrayList<>();
+        final List<Integer> shows = new ArrayList<>();
 
         Cursor c = db.query(TABLE_SHOWS, null, null, null, null, null, null);
 
         while(c.moveToNext()){
-            TVMaze.getInstance().getShowFromId(c.getInt(0), new TVMaze.OnShowLookupListener() {
-                @Override
-                public void onResult(Show show) {
-                    shows.add(show);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+            int id = c.getInt(0);
+            shows.add(id);
         }
+
         return shows;
     }
 }
