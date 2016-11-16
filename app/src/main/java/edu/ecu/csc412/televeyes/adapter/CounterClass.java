@@ -54,12 +54,13 @@ public class CounterClass extends CountDownTimer {
 
         SimpleDateFormat format = null;
         format = new SimpleDateFormat("yyyy-MM-dd k:mm z", Locale.getDefault());
-
         Date d = Util.getNextOccurenceOfDay(Util.getDayFromString(showTime));
         try {
             d = format.parse(showTime);
         } catch (ParseException e) {
             e.printStackTrace();
+            System.out.print(cdClock);
+            textView.setText(cdClock);
         }
 
         long milliShow = d.getTime();
