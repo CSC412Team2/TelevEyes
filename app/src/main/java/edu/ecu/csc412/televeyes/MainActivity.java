@@ -127,8 +127,8 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
 
 
         //creates an intent to open the app after clicking the notification
-        Intent nIntent = new Intent(this, ShowFragment.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, nIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent nIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, nIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notification1.setContentIntent(pendingIntent);
         notification2.setContentIntent(pendingIntent);
 
