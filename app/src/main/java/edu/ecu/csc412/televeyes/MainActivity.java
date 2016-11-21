@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -17,7 +18,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,10 +34,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ecu.csc412.televeyes.adapter.SuggestionAdapter;
+import edu.ecu.csc412.televeyes.database.DatabaseHelper;
 import edu.ecu.csc412.televeyes.json.ShowContainer;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
 import edu.ecu.csc412.televeyes.view.SlidingTabLayout;
+
+import static android.R.attr.category;
+import static android.R.attr.id;
 
 public class MainActivity extends AppCompatActivity implements DiscoverFragment.OnListFragmentInteractionListener {
 
@@ -47,6 +55,13 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
+    String[] mCategories;
+    private ListView mDrawerList;
+    private DrawerLayout mDrawerLayout;
+
+    private DiscoverFragment discoverFragment;
+    private ShowFragment showFragment;
+
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -59,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
     private static final String[] sAutocompleteColNames = new String[]{
             BaseColumns._ID,                         // necessary for adapter
             SearchManager.SUGGEST_COLUMN_TEXT_1      // the full search term
-    };
+};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +82,31 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mCategories = getResources().getStringArray(R.array.categories);
+        mDrawerList = (ListView) findViewById(R.id.filter_drawer);
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, mCategories);
+        mDrawerList.setAdapter(adapter);
+        mDrawerList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+        mDrawerList.setSelector(R.color.colorAccent);
+        mDrawerList.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mDrawerList.setSelection(0);
+                adapter.notifyDataSetChanged();
+            }
+        }, 300);
+
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mDrawerLayout.closeDrawer(mDrawerList);
+                mDrawerList.setSelection(position);
+                displayDataItems(mCategories[position]);
+            }
+        });
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -84,6 +124,19 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+
+    private void displayDataItems(final String category) {
+        if(discoverFragment == null){
+            discoverFragment = DiscoverFragment.newInstance(1);
+        }
+        discoverFragment.refreshShows(category);
+
+        if(showFragment == null){
+            showFragment = ShowFragment.newInstance(getApplicationContext(), 1);
+        }
+        showFragment.refreshShows(category);
     }
 
 
@@ -228,9 +281,15 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
             // Return the corresponding fragment depending on position.
             switch (position) {
                 case 0:
-                    return DiscoverFragment.newInstance(1);
+                    if(discoverFragment == null){
+                        discoverFragment = DiscoverFragment.newInstance(1);
+                    }
+                    return discoverFragment;
                 case 1:
-                    return ShowFragment.newInstance(getApplicationContext(), 1);
+                    if(showFragment == null){
+                        showFragment = ShowFragment.newInstance(getApplicationContext(), 1);
+                    }
+                    return showFragment;
                 default:
                     return PlaceholderFragment.newInstance(position + 1);
             }

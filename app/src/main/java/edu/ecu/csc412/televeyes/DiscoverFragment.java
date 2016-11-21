@@ -127,6 +127,43 @@ public class DiscoverFragment extends Fragment {
         });
     }
 
+    public void refreshShows(final String cat){
+        if(cat.compareToIgnoreCase("all") == 0){
+            refreshShows();
+        } else {
+            TVMaze.getInstance().getSchedule(100, new TVMaze.OnShowSearchListener() {
+                @Override
+                public void onResults(List<Show> shows) {
+                    //Get the list view
+                    RecyclerView view = (RecyclerView) getView();
+
+                    for(int i = 0; i < shows.size(); i++){
+                        boolean fits = false;
+                        List<String> genres = shows.get(i).getGenres();
+                        for(String genre : genres){
+                            if(cat.compareToIgnoreCase(genre) == 0){
+                                fits = true;
+                            }
+                        }
+                        if(!fits) shows.remove(i);
+                    }
+
+                    //If the list view isn't null then set a new adapter
+                    if (view != null) {
+                        view.setAdapter(new RecyclerViewAdapter(shows, mListener, RecyclerViewAdapter.ListType.DISCOVER, getActivity().getApplicationContext()));
+                        view.invalidate();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    refreshShows(cat);
+                }
+            });
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

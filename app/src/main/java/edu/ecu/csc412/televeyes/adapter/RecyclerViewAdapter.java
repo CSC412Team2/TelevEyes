@@ -19,6 +19,8 @@ import com.android.volley.toolbox.NetworkImageView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -222,6 +224,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         notifyItemInserted(mValues.size() - 1 );
     }
 
+    public void clearItems(){
+        mValues.clear();
+        notifyDataSetChanged();
+    }
+
+    public void sortShows()
+    {
+        Collections.sort(mValues, new Comparator<Show>(){
+            @Override
+            public int compare(Show o1, Show o2){
+                return o1.getName().compareToIgnoreCase(o2.getName());
+            }
+        });
+    }
     @Override
     public int getItemCount() {
         return mValues.size();

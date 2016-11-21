@@ -53,14 +53,9 @@ public class CounterClass extends CountDownTimer {
         long milliNow = n.getTime();
 
         SimpleDateFormat format = null;
-        format = new SimpleDateFormat("yyyy-MM-dd k:mm z", Locale.getDefault());
+        format = new SimpleDateFormat("k:mm", Locale.getDefault());
 
         Date d = Util.getNextOccurenceOfDay(Util.getDayFromString(showTime));
-        try {
-            d = format.parse(showTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
         long milliShow = d.getTime();
         milliFuture = milliShow - milliNow;

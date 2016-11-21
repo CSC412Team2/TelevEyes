@@ -43,6 +43,7 @@ public class Show {
         this.summary = show.summary;
         this.schedule = new Schedule(show.schedule);
         this.rating = show.rating.average;
+        this.genres = show.genres;
         if(show.image.medium != null) {
             this.image = show.image.medium;
         } else {
@@ -72,6 +73,7 @@ public class Show {
         this.summary = series.summary;
         this.schedule = new Schedule(series.show.schedule);
         this.rating = series.show.rating.average;
+        this.genres = series.show.genres;
 
         if(series.show.image != null)
         if(series.show.image.medium != null) {
@@ -113,9 +115,25 @@ public class Show {
         return image;
     }
 
+    @Override
+    public boolean equals(Object other){
+        if(other == null){
+            return false;
+        }
+
+        final Show show = (Show) other;
+
+        if(this.getId() == show.getId()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public class Episode{
         private String name;
-        private String summary;
+        private
+        String summary;
         private double rating;
         private long airDate;
 

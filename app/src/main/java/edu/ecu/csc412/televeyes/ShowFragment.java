@@ -129,6 +129,28 @@ public class ShowFragment extends Fragment implements DiscoverFragment.OnListFra
         }
     }
 
+    public void refreshShows(final String category){
+        List<Integer> showIds = databaseHelper.getShowIds();
+        adapter.clearItems();
+        for(int i = 0; i < showIds.size(); i++){
+            TVMaze.getInstance().getShowFromId(showIds.get(i), new TVMaze.OnShowLookupListener() {
+                @Override
+                public void onResult(Show show) {
+                    for(String cat : show.getGenres()){
+                        if(cat.compareToIgnoreCase(category) == 0){
+                            adapter.addShow(show);
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
     @Override
     public void onListFragmentInteraction(Show item) {
 
