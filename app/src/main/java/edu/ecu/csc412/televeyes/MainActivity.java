@@ -33,9 +33,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.adapter.CounterClass;
 import edu.ecu.csc412.televeyes.adapter.SuggestionAdapter;
-import edu.ecu.csc412.televeyes.database.DatabaseHelper;
 import edu.ecu.csc412.televeyes.json.ShowContainer;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
@@ -46,7 +44,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.ActionBarActivity;
 
 
 public class MainActivity extends AppCompatActivity implements DiscoverFragment.OnListFragmentInteractionListener {
@@ -82,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
     private List<ShowContainer> shows;
     private Gson gson;
     private RequestQueue requestQueue;
+    private List<Show> searchShows;
     SearchView.SearchAutoComplete searchSrcTextView;
 
     private static final String[] sAutocompleteColNames = new String[]{
@@ -213,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
         searchSrcTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                return;
+                SynActivity.ShowSynop(getApplicationContext(), searchShows.get(position).getId());
             }
         });
 
@@ -247,6 +245,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
                             items.add(shows.get(i).getName());
                         }
 
+                        searchShows = shows;
                         //Show names are shown here
                         searchSrcTextView.setAdapter(new SuggestionAdapter<>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, items));
                     }
@@ -347,9 +346,11 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
                         showFragment = ShowFragment.newInstance(getApplicationContext(), 1);
                     }
                     return showFragment;
-                default:
-                    return PlaceholderFragment.newInstance(position + 1);
+                case 2:
+                    return NotiFragment.newInstance(1);
+
             }
+            return null;
         }
 
         @Override

@@ -24,7 +24,7 @@ import edu.ecu.csc412.televeyes.tv.TVMaze;
 import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
 
 
-public class ShowFragment extends Fragment implements DiscoverFragment.OnListFragmentInteractionListener{
+public class ShowFragment extends Fragment implements DiscoverFragment.OnListFragmentInteractionListener {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
@@ -82,13 +82,10 @@ public class ShowFragment extends Fragment implements DiscoverFragment.OnListFra
             List<Show> items = new ArrayList<>();
 
             //If the list view isn't null then set a new adapter
-            if (view != null) {
-                adapter = new RecyclerViewAdapter(items, this, RecyclerViewAdapter.ListType.SAVES, getActivity().getApplicationContext());
+            adapter = new RecyclerViewAdapter(items, this, RecyclerViewAdapter.ListType.SAVES, getActivity().getApplicationContext());
 
-                recyclerView.setAdapter(adapter);
-                view.invalidate();
-            }
-
+            recyclerView.setAdapter(adapter);
+            view.invalidate();
 
 
             recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
@@ -114,7 +111,7 @@ public class ShowFragment extends Fragment implements DiscoverFragment.OnListFra
     private void refreshShows() {
         List<Integer> showIds = databaseHelper.getShowIds();
 
-        for(int i = 0; i < showIds.size(); i++){
+        for (int i = 0; i < showIds.size(); i++) {
             TVMaze.getInstance().getShowFromId(showIds.get(i), new TVMaze.OnShowLookupListener() {
                 @Override
                 public void onResult(Show show) {
@@ -129,15 +126,14 @@ public class ShowFragment extends Fragment implements DiscoverFragment.OnListFra
         }
     }
 
-    public void refreshShows(final String category){
+    public void refreshShows(final String category) {
         List<Integer> showIds = databaseHelper.getShowIds();
-        adapter.clearItems();
-        for(int i = 0; i < showIds.size(); i++){
+        for (int i = 0; i < showIds.size(); i++) {
             TVMaze.getInstance().getShowFromId(showIds.get(i), new TVMaze.OnShowLookupListener() {
                 @Override
                 public void onResult(Show show) {
-                    for(String cat : show.getGenres()){
-                        if(cat.compareToIgnoreCase(category) == 0){
+                    for (String cat : show.getGenres()) {
+                        if (cat.compareToIgnoreCase(category) == 0) {
                             adapter.addShow(show);
                         }
                     }

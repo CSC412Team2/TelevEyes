@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.ecu.csc412.televeyes.adapter.RecyclerViewAdapter;
@@ -33,6 +34,10 @@ public class DiscoverFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+
+    private RecyclerViewAdapter adapter;
+
+    private ArrayList<Show> shows;
 
 
     /**
@@ -78,6 +83,12 @@ public class DiscoverFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
+            shows = new ArrayList<>();
+
+            adapter = new RecyclerViewAdapter(shows, mListener, RecyclerViewAdapter.ListType.DISCOVER, getActivity().getApplicationContext());
+
+            recyclerView.setAdapter(adapter);
+
             recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
             refreshShows();
         }
@@ -112,9 +123,13 @@ public class DiscoverFragment extends Fragment {
                 //Get the list view
                 RecyclerView view = (RecyclerView) getView();
 
+                adapter.clearItems();
+
                 //If the list view isn't null then set a new adapter
                 if (view != null) {
-                    view.setAdapter(new RecyclerViewAdapter(shows, mListener, RecyclerViewAdapter.ListType.DISCOVER, getActivity().getApplicationContext()));
+                    for(Show show : shows) {
+                        adapter.addShow(show);
+                    }
                     view.invalidate();
                 }
             }
@@ -148,9 +163,12 @@ public class DiscoverFragment extends Fragment {
                         if(!fits) shows.remove(i);
                     }
 
+                    adapter.clearItems();
                     //If the list view isn't null then set a new adapter
                     if (view != null) {
-                        view.setAdapter(new RecyclerViewAdapter(shows, mListener, RecyclerViewAdapter.ListType.DISCOVER, getActivity().getApplicationContext()));
+                        for(Show show : shows) {
+                            adapter.addShow(show);
+                        }
                         view.invalidate();
                     }
                 }

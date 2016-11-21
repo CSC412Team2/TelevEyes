@@ -3,9 +3,7 @@ package edu.ecu.csc412.televeyes.adapter;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +23,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import edu.ecu.csc412.televeyes.util.CounterClass;
 import edu.ecu.csc412.televeyes.R;
 import edu.ecu.csc412.televeyes.DiscoverFragment.OnListFragmentInteractionListener;
+import edu.ecu.csc412.televeyes.SynActivity;
 import edu.ecu.csc412.televeyes.VolleySingleton;
 import edu.ecu.csc412.televeyes.database.DatabaseHelper;
 import edu.ecu.csc412.televeyes.dummy.DummyContent.DummyItem;
@@ -83,11 +83,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (null != mListener) {
-                        // Notify the active callbacks interface (the activity, if the
-                        // fragment is attached to one) that an item has been selected.
-                        mListener.onListFragmentInteraction(holder.mItem);
-                    }
+                    SynActivity.ShowSynop(context, mValues.get(position).getId());
                 }
             });
 
@@ -113,8 +109,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
+                    SynActivity.ShowSynop(context, mValues.get(position).getId());
                 }
             });
 
@@ -143,11 +138,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (null != mListener) {
-                        // Notify the active callbacks interface (the activity, if the
-                        // fragment is attached to one) that an item has been selected.
-                        mListener.onListFragmentInteraction(holder.mItem);
-                    }
+                    SynActivity.ShowSynop(context, mValues.get(position).getId());
                 }
             });
 
@@ -222,6 +213,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void addShow(Show show){
         mValues.add(show);
         notifyItemInserted(mValues.size() - 1 );
+        notifyDataSetChanged();
     }
 
     public void clearItems(){

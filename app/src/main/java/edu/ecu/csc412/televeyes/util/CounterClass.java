@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.adapter;
+package edu.ecu.csc412.televeyes.util;
 
 import android.content.Context;
 import android.os.CountDownTimer;

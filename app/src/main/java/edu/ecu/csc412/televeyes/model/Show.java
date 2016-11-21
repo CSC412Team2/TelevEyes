@@ -20,21 +20,25 @@ public class Show {
     private int numberOfEpisodes;
     private double rating;
     private List<String> genres;
+    private String network;
 
     //TODO add suppport for multiple images
     private String image;
+    private String largeImage;
 
     private Show(){}
 
-    public Show(int id, String name, String summary, edu.ecu.csc412.televeyes.json.Schedule schedule, int episodes, double rating, String image, List<String> genres){
+    public Show(int id, String name, String summary, edu.ecu.csc412.televeyes.json.Schedule schedule, int episodes, double rating, String image, String largeImage, List<String> genres, String network){
         this.id = id;
         this.name = name;
         this.summary = summary;
         this.schedule = new Schedule(schedule);
         this.numberOfEpisodes = episodes;
         this.rating = rating;
+        this.largeImage = largeImage;
         this.image = image;
         this.genres = genres;
+        this.network = network;
     }
 
     public Show(edu.ecu.csc412.televeyes.json.Show show){
@@ -44,11 +48,16 @@ public class Show {
         this.schedule = new Schedule(show.schedule);
         this.rating = show.rating.average;
         this.genres = show.genres;
-        if(show.image.medium != null) {
-            this.image = show.image.medium;
-        } else {
-            this.image = show.image.original;
+
+        if(show.image != null) {
+            if (show.image.medium != null) {
+                this.image = show.image.medium;
+            }
+            if (show.image.original != null) {
+                this.largeImage = show.image.original;
+            }
         }
+        this.network = show.network.name;
     }
 
     public Show(ShowContainer container){
@@ -60,11 +69,17 @@ public class Show {
         this.rating = container.score;
         this.genres = container.show.genres;
 
-        if(container.show.image.medium != null) {
-            this.image = container.show.image.medium;
-        } else {
-            this.image = container.show.image.original;
+        if(container.show.image != null) {
+            if (container.show.image.medium != null) {
+                this.image = container.show.image.medium;
+            }
+            if (container.show.image.original != null) {
+                this.largeImage = container.show.image.original;
+            }
         }
+
+        if(container.show.network != null)
+        this.network = container.show.network.name;
     }
 
     public Show(Series series){
@@ -74,12 +89,15 @@ public class Show {
         this.schedule = new Schedule(series.show.schedule);
         this.rating = series.show.rating.average;
         this.genres = series.show.genres;
+        this.network = series.show.network.name;
 
-        if(series.show.image != null)
-        if(series.show.image.medium != null) {
-            this.image = series.show.image.medium;
-        } else {
-            this.image = series.show.image.original;
+        if(series.show.image != null) {
+            if (series.show.image.medium != null) {
+                this.image = series.show.image.medium;
+            }
+            if (series.show.image.original != null) {
+                this.largeImage = series.show.image.original;
+            }
         }
     }
 
@@ -114,6 +132,10 @@ public class Show {
     public String getImage(){
         return image;
     }
+
+    public String getLargeImage() { return largeImage; }
+
+    public String getNetwork() { return network; }
 
     @Override
     public boolean equals(Object other){
