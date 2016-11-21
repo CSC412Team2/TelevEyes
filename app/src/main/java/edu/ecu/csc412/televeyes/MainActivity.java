@@ -33,6 +33,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ecu.csc412.televeyes.adapter.CounterClass;
 import edu.ecu.csc412.televeyes.adapter.SuggestionAdapter;
 import edu.ecu.csc412.televeyes.database.DatabaseHelper;
 import edu.ecu.csc412.televeyes.json.ShowContainer;
@@ -40,10 +41,22 @@ import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
 import edu.ecu.csc412.televeyes.view.SlidingTabLayout;
 
-import static android.R.attr.category;
-import static android.R.attr.id;
+//notifications
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.ActionBarActivity;
+
 
 public class MainActivity extends AppCompatActivity implements DiscoverFragment.OnListFragmentInteractionListener {
+
+    //Notification1 = notification for new episode about to air
+    NotificationCompat.Builder notification1;
+    private static final int uniqueID1 = 38294;
+    //Notification2 = notification for changes in the show's platform ie. time, day, channel, etc.
+    NotificationCompat.Builder notification2;
+    private static final int uniqueID2 = 53926;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -124,6 +137,50 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        //NOTIFICATION1 CODE
+        notification1 = new NotificationCompat.Builder(this);
+        notification1.setAutoCancel(true);
+
+        //new ep airing notification code for the system
+        //build the notification
+        notification1.setSmallIcon(R.mipmap.ic_launcher);
+        notification1.setTicker("Something is airing soon");
+        notification1.setWhen(System.currentTimeMillis());
+        notification1.setContentTitle("A New Episode is About to Air");
+        notification1.setContentText("Click to go to app and view");
+
+        //NOTIFICATION2 CODE
+        notification2 = new NotificationCompat.Builder(this);
+        notification2.setAutoCancel(true);
+
+        //changes to show format notification code for the system
+        //build the notification
+        notification2.setSmallIcon(R.mipmap.ic_launcher);
+        notification2.setTicker("Something has changed");
+        notification2.setWhen(System.currentTimeMillis());
+        notification2.setContentTitle("Your Show's Format Has Changed");
+        notification2.setContentText("Click to go to app and view");
+
+
+        //creates an intent to open the app after clicking the notification
+        Intent nIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, nIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notification1.setContentIntent(pendingIntent);
+        notification2.setContentIntent(pendingIntent);
+
+        //Builds notification1 and issues it ********
+        //******** needs to reach a value of a certain time before show then notify user
+        NotificationManager nm1 = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm1.notify(uniqueID1, notification1.build());
+
+
+        //Builds notification2 and issues it ********
+        //********* needs to be issued to user when any changes to shows' platforms are made ie. time, day, cancellation, etc.
+        NotificationManager nm2 = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm2.notify(uniqueID2, notification2.build());
+
+
     }
 
 

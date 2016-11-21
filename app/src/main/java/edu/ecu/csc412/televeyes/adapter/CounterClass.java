@@ -53,6 +53,7 @@ public class CounterClass extends CountDownTimer {
         long milliNow = n.getTime();
 
         SimpleDateFormat format = null;
+
         format = new SimpleDateFormat("k:mm", Locale.getDefault());
 
         Date d = Util.getNextOccurenceOfDay(Util.getDayFromString(showTime));
