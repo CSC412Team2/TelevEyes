@@ -8,6 +8,7 @@
     <application
         android:name=".ApplicationSingleton"
         android:allowBackup="true"
+        android:logo="@drawable/logo"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"

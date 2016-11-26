@@ -1,11 +1,10 @@
-package edu.ecu.csc412.televeyes.json;
 
+package edu.ecu.csc412.televeyes.json;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
-public class Series {
+public class Episode {
 
     @SerializedName("id")
     @Expose
@@ -36,15 +35,11 @@ public class Series {
     public Integer runtime;
     @SerializedName("image")
     @Expose
-    public Object image;
+    public Image image;
     @SerializedName("summary")
     @Expose
     public String summary;
-    @SerializedName("show")
-    @Expose
-    public Show show;
     @SerializedName("_links")
     @Expose
-    public Links_ links;
-
+    public Links links;
 }

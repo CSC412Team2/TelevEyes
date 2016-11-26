@@ -216,6 +216,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         notifyDataSetChanged();
     }
 
+    public void removeShow(Show show){
+        int position = mValues.indexOf(show);
+        mValues.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public void clearItems(){
         mValues.clear();
         notifyDataSetChanged();

@@ -110,12 +110,12 @@ public class ShowFragment extends Fragment implements DiscoverFragment.OnListFra
      */
     private void refreshShows() {
         List<Integer> showIds = databaseHelper.getShowIds();
-
         for (int i = 0; i < showIds.size(); i++) {
             TVMaze.getInstance().getShowFromId(showIds.get(i), new TVMaze.OnShowLookupListener() {
                 @Override
                 public void onResult(Show show) {
                     adapter.addShow(show);
+                    adapter.sortShows();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -137,6 +137,7 @@ public class ShowFragment extends Fragment implements DiscoverFragment.OnListFra
                             adapter.addShow(show);
                         }
                     }
+                    adapter.sortShows();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -151,4 +152,10 @@ public class ShowFragment extends Fragment implements DiscoverFragment.OnListFra
     public void onListFragmentInteraction(Show item) {
 
     }
+
+
+    private static void refresh(boolean filter) {
+
+    }
+
 }

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,9 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+import edu.ecu.csc412.televeyes.adapter.ExpandableListAdapter;
+import edu.ecu.csc412.televeyes.model.Episode;
+import edu.ecu.csc412.televeyes.model.Season;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
 
@@ -31,6 +35,11 @@ public class SynActivity extends AppCompatActivity {
     private TextView mGenres;
     private TextView mScore;
     private TextView mSynop;
+    private ExpandableListView mSeasonView;
+    private ExpandableListAdapter adapter;
+
+    private List<Season> seasons;
+    private List<Episode> episodes;
 
     public static void ShowSynop(Context context, int id){
         Intent intent = new Intent(context, SynActivity.class);
@@ -57,6 +66,7 @@ public class SynActivity extends AppCompatActivity {
         mGenres = (TextView) findViewById(R.id.show_genres);
         mScore = (TextView) findViewById(R.id.show_score);
         mSynop = (TextView) findViewById(R.id.show_synop);
+        mSeasonView = (ExpandableListView) findViewById(R.id.season_view);
 
         handleIntent();
     }
@@ -69,7 +79,7 @@ public class SynActivity extends AppCompatActivity {
 
             TVMaze.getInstance().getShowFromId(id, new TVMaze.OnShowLookupListener() {
                 @Override
-                public void onResult(Show show) {
+                public void onResult(final Show show) {
                     getSupportActionBar().setTitle(show.getName());
                     mBoxArt.setImageUrl(show.getLargeImage() != null ? show.getLargeImage() : show.getImage(), VolleySingleton.getInstance().getImageLoader());
                     mTitle.setText(show.getName());
@@ -104,6 +114,32 @@ public class SynActivity extends AppCompatActivity {
                     } else {
                         mSynop.setText(Html.fromHtml(show.getSummary()).toString());
                     }
+
+                    TVMaze.getInstance().getSeasonsFromId(show.getId(), new TVMaze.OnSeasonLookupListener() {
+                        @Override
+                        public void onResults(List<Season> seasonsList) {
+                            seasons = seasonsList;
+
+                            TVMaze.getInstance().getEpisodesFromId(show.getId(), new TVMaze.OnEpisodeLookupListener() {
+                                @Override
+                                public void onResults(List<Episode> episodesList) {
+                                    episodes = episodesList;
+                                    adapter = new ExpandableListAdapter(seasons, episodes, getApplicationContext());
+                                    mSeasonView.setAdapter(adapter);
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+
+                                }
+                            });
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    });
                 }
             }, new Response.ErrorListener() {
                 @Override

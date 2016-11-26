@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -82,10 +83,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
     private List<Show> searchShows;
     SearchView.SearchAutoComplete searchSrcTextView;
 
-    private static final String[] sAutocompleteColNames = new String[]{
-            BaseColumns._ID,                         // necessary for adapter
-            SearchManager.SUGGEST_COLUMN_TEXT_1      // the full search term
-};
+    private ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +92,18 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.logo);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mCategories = getResources().getStringArray(R.array.categories);
         mDrawerList = (ListView) findViewById(R.id.filter_drawer);
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.app_name,R.string.app_name);
+        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, mCategories);
         mDrawerList.setAdapter(adapter);

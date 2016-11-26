@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import edu.ecu.csc412.televeyes.adapter.RecyclerViewAdapter;
@@ -83,10 +84,6 @@ public class DiscoverFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            shows = new ArrayList<>();
-
-            adapter = new RecyclerViewAdapter(shows, mListener, RecyclerViewAdapter.ListType.DISCOVER, getActivity().getApplicationContext());
-
             recyclerView.setAdapter(adapter);
 
             recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
@@ -99,6 +96,10 @@ public class DiscoverFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+        shows = new ArrayList<>();
+        adapter = new RecyclerViewAdapter(shows, mListener, RecyclerViewAdapter.ListType.DISCOVER, getActivity().getApplicationContext());
+
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
@@ -123,7 +124,11 @@ public class DiscoverFragment extends Fragment {
                 //Get the list view
                 RecyclerView view = (RecyclerView) getView();
 
+                if(adapter == null) {
+
+                }
                 adapter.clearItems();
+
 
                 //If the list view isn't null then set a new adapter
                 if (view != null) {
@@ -148,26 +153,30 @@ public class DiscoverFragment extends Fragment {
         } else {
             TVMaze.getInstance().getSchedule(100, new TVMaze.OnShowSearchListener() {
                 @Override
-                public void onResults(List<Show> shows) {
+                public void onResults(List<Show> results) {
                     //Get the list view
                     RecyclerView view = (RecyclerView) getView();
 
-                    for(int i = 0; i < shows.size(); i++){
+                    Iterator it = results.iterator();
+
+                    while(it.hasNext()){
                         boolean fits = false;
-                        List<String> genres = shows.get(i).getGenres();
+                        Show show = (Show) it.next();
+                        List<String> genres = show.getGenres();
                         for(String genre : genres){
                             if(cat.compareToIgnoreCase(genre) == 0){
                                 fits = true;
                             }
                         }
-                        if(!fits) shows.remove(i);
+
+                        if(!fits) it.remove();
                     }
 
                     adapter.clearItems();
                     //If the list view isn't null then set a new adapter
                     if (view != null) {
-                        for(Show show : shows) {
-                            adapter.addShow(show);
+                        for(int i = 0; i < results.size(); i++) {
+                            adapter.addShow(results.get(i));
                         }
                         view.invalidate();
                     }
