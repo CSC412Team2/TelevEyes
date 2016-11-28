@@ -11,7 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
+
+import edu.ecu.csc412.televeyes.view.CircularNetworkImageView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,32 +23,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import edu.ecu.csc412.televeyes.DiscoverFragment.OnListFragmentInteractionListener;
 import edu.ecu.csc412.televeyes.R;
 import edu.ecu.csc412.televeyes.SynActivity;
 import edu.ecu.csc412.televeyes.VolleySingleton;
 import edu.ecu.csc412.televeyes.database.DatabaseHelper;
-import edu.ecu.csc412.televeyes.dummy.DummyContent.DummyItem;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.util.CounterClass;
 import edu.ecu.csc412.televeyes.util.Util;
 import edu.ecu.csc412.televeyes.view.CheckableImageView;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final List<Show> mValues;
-    private final OnListFragmentInteractionListener mListener;
     private ImageLoader mImageLoader;
     private ListType listType;
     private Context context;
 
-    public RecyclerViewAdapter(List<Show> items, OnListFragmentInteractionListener listener, ListType listType, Context context) {
+    public RecyclerViewAdapter(List<Show> items, ListType listType, Context context) {
         mValues = items;
-        mListener = listener;
         mImageLoader = VolleySingleton.getInstance().getImageLoader();
         this.listType = listType;
         this.context = context;
@@ -68,119 +60,130 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder item, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder item, int position) {
         if (item instanceof DiscoverViewHolder) {
-            final DiscoverViewHolder holder = (DiscoverViewHolder) item;
-            holder.mItem = mValues.get(position);
-            holder.mTitleView.setText(mValues.get(position).getName());
-
-            String url = mValues.get(position).getImage();
-
-            if (url != null) {
-                fadeTransition(1, 0, holder.mImageView, url);
-            }
-
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SynActivity.ShowSynop(context, mValues.get(position).getId());
-                }
-            });
-
-            holder.mAddView.setChecked(DatabaseHelper.getInstance(context).isShowSaved(mValues.get(position)));
-
-            holder.mAddView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    holder.mAddView.toggle();
-
-                    if (holder.mAddView.isChecked()) {
-                        DatabaseHelper.getInstance(context).addShow(mValues.get(position));
-                    } else {
-                        DatabaseHelper.getInstance(context).removeShow(mValues.get(position));
-                    }
-                }
-            });
-
+            setupDiscoverViewHolder(item, position);
         } else if (item instanceof SearchViewHolder) {
-
-            final SearchViewHolder holder = (SearchViewHolder) item;
-
-            holder.mItem = mValues.get(position);
-            holder.mTitleView.setText(mValues.get(position).getName());
-
-            String url = mValues.get(position).getImage();
-            if (url != null) {
-                fadeTransition(1, 0, holder.mImageView, url);
-            }
-
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SynActivity.ShowSynop(context, mValues.get(position).getId());
-                }
-            });
-
-            if (position == getItemCount() - 1) {
-                int left, right, top, bottom;
-                View view = holder.mView;
-
-                left = view.getPaddingLeft();
-                right = view.getPaddingRight();
-                top = view.getPaddingTop();
-
-                bottom = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 14, context.getResources().getDisplayMetrics());
-
-                view.setPadding(left, top, right, bottom);
-            }
+            setupSearchViewHolder(item, position);
         } else if (item instanceof SavesViewHolder) {
-            final SavesViewHolder holder = (SavesViewHolder) item;
-            holder.mItem = mValues.get(position);
-            holder.mTitleView.setText(mValues.get(position).getName());
-            String url = mValues.get(position).getImage();
-
-            if (url != null) {
-                fadeTransition(1, 0, holder.mImageView, url);
-            }
-
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SynActivity.ShowSynop(context, mValues.get(position).getId());
-                }
-            });
-
-            Show show = mValues.get(position);
-
-
-            String showTime = show.getSchedule().getDays().get(0);
-            Date d = Util.getNextOccurenceOfDay(Util.getDayFromString(showTime));
-
-            SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.getDefault());
-            Date time = null;
-
-            try {
-                time = format.parse(show.getSchedule().getShowTime());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            Calendar hc = Calendar.getInstance();
-            hc.setTime(time);
-
-            Calendar cal = Calendar.getInstance(); // creates calendar
-            cal.setTime(d); // sets calendar time/date
-
-            cal.add(Calendar.HOUR_OF_DAY, hc.get(Calendar.HOUR_OF_DAY)); // adds one hour
-            cal.add(Calendar.MINUTE, hc.get(Calendar.MINUTE));
-
-            if (holder.getCounter() != null) {
-                holder.getCounter().cancel();
-            }
-
-            holder.setCounterClass(new CounterClass(cal.getTimeInMillis() - System.currentTimeMillis(), 1000, holder.mTimer, show, context));
-            holder.getCounter().start();
+            setupSavesViewHolder(item, position);
         }
+    }
+
+    private void setupSavesViewHolder(final RecyclerView.ViewHolder item, int position) {
+        final SavesViewHolder holder = (SavesViewHolder) item;
+        holder.mItem = mValues.get(position);
+        holder.mTitleView.setText(mValues.get(position).getName());
+        String url = mValues.get(position).getImage();
+
+        if (url != null) {
+            fadeTransition(1, 0, holder.mImageView, url);
+        }
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SynActivity.ShowSynop(context, mValues.get(item.getAdapterPosition()).getId());
+            }
+        });
+
+        Show show = mValues.get(position);
+
+
+        String showTime = show.getSchedule().getDays().get(0);
+        Date d = Util.getNextOccurenceOfDay(Util.getDayFromString(showTime));
+
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        Date time = null;
+
+        try {
+            time = format.parse(show.getSchedule().getShowTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar hc = Calendar.getInstance();
+        hc.setTime(time);
+
+        Calendar cal = Calendar.getInstance(); // creates calendar
+        cal.setTime(d); // sets calendar time/date
+
+        cal.add(Calendar.HOUR_OF_DAY, hc.get(Calendar.HOUR_OF_DAY)); // adds one hour
+        cal.add(Calendar.MINUTE, hc.get(Calendar.MINUTE));
+
+        if (holder.getCounter() != null) {
+            holder.getCounter().cancel();
+        }
+
+        holder.setCounterClass(new CounterClass(cal.getTimeInMillis() - System.currentTimeMillis(), 1000, holder.mTimer, show, context));
+        holder.getCounter().start();
+    }
+
+    private void setupSearchViewHolder(final RecyclerView.ViewHolder item, int position) {
+        final SearchViewHolder holder = (SearchViewHolder) item;
+
+        holder.mItem = mValues.get(position);
+        holder.mTitleView.setText(mValues.get(position).getName());
+
+        String url = mValues.get(position).getImage();
+        if (url != null) {
+            fadeTransition(1, 0, holder.mImageView, url);
+        }
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SynActivity.ShowSynop(context, mValues.get(item.getAdapterPosition()).getId());
+            }
+        });
+
+        if (position == getItemCount() - 1) {
+            int left, right, top, bottom;
+            View view = holder.mView;
+
+            left = view.getPaddingLeft();
+            right = view.getPaddingRight();
+            top = view.getPaddingTop();
+
+            bottom = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 14, context.getResources().getDisplayMetrics());
+
+            view.setPadding(left, top, right, bottom);
+        }
+    }
+
+    public void setupDiscoverViewHolder(final RecyclerView.ViewHolder item, int position){
+        final DiscoverViewHolder holder = (DiscoverViewHolder) item;
+        holder.mItem = mValues.get(position);
+        holder.mTitleView.setText(mValues.get(position).getName());
+
+        String url = mValues.get(position).getImage();
+
+        if (url != null) {
+            fadeTransition(1, 0, holder.mImageView, url);
+        }
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SynActivity.ShowSynop(context, mValues.get(item.getAdapterPosition()).getId());
+            }
+        });
+
+        holder.mAddView.setChecked(DatabaseHelper.getInstance().isShowSaved(mValues.get(position)));
+
+        holder.mAddView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.mAddView.toggle();
+
+                if (holder.mAddView.isChecked()) {
+                    DatabaseHelper.getInstance().addShow(mValues.get(item.getAdapterPosition()));
+                } else {
+                    DatabaseHelper.getInstance().removeShow(mValues.get(item.getAdapterPosition()));
+                }
+            }
+        });
+
     }
 
     public void fadeTransition(final float start, final float end, final View view, final String url) {
@@ -197,7 +200,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                NetworkImageView networkImageView = (NetworkImageView) view;
+                CircularNetworkImageView networkImageView = (CircularNetworkImageView) view;
                 networkImageView.setImageUrl(url, mImageLoader);
             }
 
@@ -260,7 +263,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public final View mView;
         //public final TextView mSummaryView;
         public final TextView mTitleView;
-        public final NetworkImageView mImageView;
+        public final CircularNetworkImageView mImageView;
         public final CheckableImageView mAddView;
         public Show mItem;
 
@@ -269,7 +272,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mView = view;
             //mSummaryView = (TextView) view.findViewById(R.id.summary);
             mTitleView = (TextView) view.findViewById(R.id.title);
-            mImageView = (NetworkImageView) view.findViewById(R.id.showimage);
+            mImageView = (CircularNetworkImageView) view.findViewById(R.id.showimage);
             mAddView = (CheckableImageView) view.findViewById(R.id.add_view);
         }
 
@@ -283,7 +286,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public final View mView;
         public final TextView mSummaryView;
         public final TextView mTitleView;
-        public final NetworkImageView mImageView;
+        public final CircularNetworkImageView mImageView;
         public Show mItem;
 
         public SearchViewHolder(View view) {
@@ -291,7 +294,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mView = view;
             mSummaryView = (TextView) view.findViewById(R.id.summary);
             mTitleView = (TextView) view.findViewById(R.id.title);
-            mImageView = (NetworkImageView) view.findViewById(R.id.showimage);
+            mImageView = (CircularNetworkImageView) view.findViewById(R.id.showimage);
         }
 
         @Override
@@ -304,7 +307,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public final View mView;
         //public final TextView mSummaryView;
         public final TextView mTitleView;
-        public final NetworkImageView mImageView;
+        public final CircularNetworkImageView mImageView;
         public final TextView mTimer;
         public CounterClass counter;
         public Show mItem;
@@ -314,7 +317,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mView = view;
             //mSummaryView = (TextView) view.findViewById(R.id.summary);
             mTitleView = (TextView) view.findViewById(R.id.title);
-            mImageView = (NetworkImageView) view.findViewById(R.id.showimage);
+            mImageView = (CircularNetworkImageView) view.findViewById(R.id.showimage);
             mTimer = (TextView) view.findViewById(R.id.countdown_timer);
         }
 

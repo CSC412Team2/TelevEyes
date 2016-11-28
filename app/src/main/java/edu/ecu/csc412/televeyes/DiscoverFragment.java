@@ -23,23 +23,10 @@ import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
 import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class DiscoverFragment extends Fragment {
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
-
     private RecyclerViewAdapter adapter;
 
     private ArrayList<Show> shows;
-
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -52,19 +39,12 @@ public class DiscoverFragment extends Fragment {
     @SuppressWarnings("unused")
     public static DiscoverFragment newInstance(int columnCount) {
         DiscoverFragment fragment = new DiscoverFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -78,11 +58,8 @@ public class DiscoverFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
             recyclerView.setAdapter(adapter);
 
@@ -98,20 +75,12 @@ public class DiscoverFragment extends Fragment {
         super.onAttach(context);
 
         shows = new ArrayList<>();
-        adapter = new RecyclerViewAdapter(shows, mListener, RecyclerViewAdapter.ListType.DISCOVER, getActivity().getApplicationContext());
-
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
+        adapter = new RecyclerViewAdapter(shows, RecyclerViewAdapter.ListType.DISCOVER, getActivity().getApplicationContext());
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     /**
@@ -189,20 +158,5 @@ public class DiscoverFragment extends Fragment {
                 }
             });
         }
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(Show item);
     }
 }

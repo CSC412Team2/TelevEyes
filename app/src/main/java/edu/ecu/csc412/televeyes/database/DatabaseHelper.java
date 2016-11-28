@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ecu.csc412.televeyes.ApplicationSingleton;
 import edu.ecu.csc412.televeyes.model.Show;
 
 /**
@@ -17,7 +18,6 @@ import edu.ecu.csc412.televeyes.model.Show;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper sInstance;
-    private final Context context;
 
     // All Static variables
     // Database Version
@@ -28,14 +28,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_SHOWS = "shows_table";
     private static final String KEY_ID = "id";
 
-    private DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.context = context;
+    private DatabaseHelper() {
+        super(ApplicationSingleton.getAppContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public static synchronized DatabaseHelper getInstance(Context context) {
+    public static synchronized DatabaseHelper getInstance() {
         if (sInstance == null) {
-            sInstance = new DatabaseHelper(context);
+            sInstance = new DatabaseHelper();
         }
         return sInstance;
     }

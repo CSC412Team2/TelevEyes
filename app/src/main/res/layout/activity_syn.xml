@@ -103,7 +103,10 @@
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:logo="@mipmap/ic_launcher"></android.support.v7.widget.Toolbar>
+            app:logo="@mipmap/ic_launcher"
+            app:contentInsetStartWithNavigation="0dp"
+            app:contentInsetStart="0dp"
+            android:contentInsetEnd="0dp"/>
 
     </android.support.design.widget.AppBarLayout>
 </android.support.design.widget.CoordinatorLayout>

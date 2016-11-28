@@ -39,6 +39,7 @@ public class SynActivity extends AppCompatActivity {
 
     public static void ShowSynop(Context context, int id) {
         Intent intent = new Intent(context, SynActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction("edu.ecu.csc412.televeyes.SHOW");
         intent.putExtra("SHOW_ID", id);
         context.startActivity(intent);
@@ -47,7 +48,6 @@ public class SynActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         setContentView(R.layout.activity_syn);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

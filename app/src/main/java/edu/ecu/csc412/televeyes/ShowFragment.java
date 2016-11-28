@@ -25,15 +25,10 @@ import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
 
 
 public class ShowFragment extends Fragment implements DiscoverFragment.OnListFragmentInteractionListener {
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
 
     private static DatabaseHelper databaseHelper;
 
     private RecyclerViewAdapter adapter;
-
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -42,24 +37,15 @@ public class ShowFragment extends Fragment implements DiscoverFragment.OnListFra
     public ShowFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static ShowFragment newInstance(Context context, int columnCount) {
+    public static ShowFragment newInstance() {
         ShowFragment fragment = new ShowFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        ShowFragment.databaseHelper = DatabaseHelper.getInstance(context);
+        ShowFragment.databaseHelper = DatabaseHelper.getInstance();
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -73,11 +59,7 @@ public class ShowFragment extends Fragment implements DiscoverFragment.OnListFra
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
             List<Show> items = new ArrayList<>();
 
