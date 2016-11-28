@@ -35,9 +35,7 @@ public class DiscoverFragment extends Fragment {
     public DiscoverFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static DiscoverFragment newInstance(int columnCount) {
+    public static DiscoverFragment newInstance() {
         DiscoverFragment fragment = new DiscoverFragment();
         return fragment;
     }

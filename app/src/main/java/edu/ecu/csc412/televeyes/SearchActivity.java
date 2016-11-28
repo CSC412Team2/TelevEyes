@@ -22,7 +22,7 @@ import edu.ecu.csc412.televeyes.adapter.RecyclerViewAdapter;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
 
-public class SearchActivity extends AppCompatActivity implements DiscoverFragment.OnListFragmentInteractionListener {
+public class SearchActivity extends AppCompatActivity {
 
     private RecyclerView view;
     private TextView searchLabel;
@@ -69,7 +69,7 @@ public class SearchActivity extends AppCompatActivity implements DiscoverFragmen
                 public void onResults(List<Show> shows) {
                     view = (RecyclerView) findViewById(R.id.search_resuts);
                     if (view != null) {
-                        view.setAdapter(new RecyclerViewAdapter(shows, searchActivity, RecyclerViewAdapter.ListType.SEARCH, getApplicationContext()));
+                        view.setAdapter(new RecyclerViewAdapter(shows, RecyclerViewAdapter.ListType.SEARCH, getApplicationContext()));
                         view.invalidate();
                     }
                     searchLabel.setText("Showing " + shows.size() + " results for \"" + query + "\"");
@@ -83,11 +83,6 @@ public class SearchActivity extends AppCompatActivity implements DiscoverFragmen
 
             });
         }
-    }
-
-    @Override
-    public void onListFragmentInteraction(Show item) {
-
     }
 
     @Override

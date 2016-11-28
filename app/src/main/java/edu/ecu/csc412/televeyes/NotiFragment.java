@@ -23,7 +23,7 @@ public class NotiFragment extends Fragment {
     public NotiFragment() {
     }
 
-    public static NotiFragment newInstance(int columnCount) {
+    public static NotiFragment newInstance() {
         NotiFragment fragment = new NotiFragment();
         return fragment;
     }

@@ -46,7 +46,7 @@ import edu.ecu.csc412.televeyes.view.SlidingTabLayout;
 //notifications
 
 
-public class MainActivity extends AppCompatActivity implements DiscoverFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity {
 
     //Notification1 = notification for new episode about to air
     NotificationCompat.Builder notification1;
@@ -190,12 +190,12 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
 
     private void displayDataItems(final String category) {
         if (discoverFragment == null) {
-            discoverFragment = DiscoverFragment.newInstance(1);
+            discoverFragment = DiscoverFragment.newInstance();
         }
         discoverFragment.refreshShows(category);
 
         if (showFragment == null) {
-            showFragment = ShowFragment.newInstance(getApplicationContext(), 1);
+            showFragment = ShowFragment.newInstance();
         }
         showFragment.refreshShows(category);
     }
@@ -287,11 +287,6 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onListFragmentInteraction(Show item) {
-
-    }
-
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -344,16 +339,16 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
             switch (position) {
                 case 0:
                     if (discoverFragment == null) {
-                        discoverFragment = DiscoverFragment.newInstance(1);
+                        discoverFragment = DiscoverFragment.newInstance();
                     }
                     return discoverFragment;
                 case 1:
                     if (showFragment == null) {
-                        showFragment = ShowFragment.newInstance(getApplicationContext(), 1);
+                        showFragment = ShowFragment.newInstance();
                     }
                     return showFragment;
                 case 2:
-                    return NotiFragment.newInstance(1);
+                    return NotiFragment.newInstance();
 
             }
             return null;
@@ -375,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
                 case 2:
                     return "Notifications";
             }
-            return null;
+            return "";
         }
     }
 }
