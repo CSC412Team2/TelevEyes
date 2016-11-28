@@ -39,6 +39,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public int getChildrenCount(int groupPosition) {
         int count = 0;
 
+        //TODO Crash occurs here sometimes... fix it later
         for (int i = 0; seasons.get(groupPosition).getNumber() == episodes.get(i).getSeason(); i++) {
             count++;
         }
@@ -70,7 +71,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public boolean hasStableIds() {
         return false;
     }
-    
+
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         Season season = (Season) getGroup(groupPosition);
@@ -91,9 +92,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         Episode episode = (Episode) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) context
+            LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.season_item, null);
+            convertView = inflater.inflate(R.layout.season_item, null);
         }
 
         TextView textView = (TextView) convertView.findViewById(R.id.episode_name);

@@ -32,7 +32,7 @@ import edu.ecu.csc412.televeyes.database.DatabaseHelper;
 import edu.ecu.csc412.televeyes.dummy.DummyContent.DummyItem;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.util.Util;
-
+import edu.ecu.csc412.televeyes.view.CheckableImageView;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
@@ -55,7 +55,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        switch(listType){
+        switch (listType) {
             case SEARCH:
                 return new SearchViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_show, parent, false));
             case DISCOVER:
@@ -69,7 +69,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder item, final int position) {
-        if(item instanceof DiscoverViewHolder){
+        if (item instanceof DiscoverViewHolder) {
             final DiscoverViewHolder holder = (DiscoverViewHolder) item;
             holder.mItem = mValues.get(position);
             holder.mTitleView.setText(mValues.get(position).getName());
@@ -87,14 +87,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             });
 
+            holder.mAddView.setChecked(DatabaseHelper.getInstance(context).isShowSaved(mValues.get(position)));
+
             holder.mAddView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DatabaseHelper.getInstance(context).addShow(mValues.get(position));
+                    holder.mAddView.toggle();
+
+                    if (holder.mAddView.isChecked()) {
+                        DatabaseHelper.getInstance(context).addShow(mValues.get(position));
+                    } else {
+                        DatabaseHelper.getInstance(context).removeShow(mValues.get(position));
+                    }
                 }
             });
 
-        } else if(item instanceof SearchViewHolder){
+        } else if (item instanceof SearchViewHolder) {
 
             final SearchViewHolder holder = (SearchViewHolder) item;
 
@@ -113,8 +121,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             });
 
-            if(position == getItemCount() - 1){
-                int left,right,top,bottom;
+            if (position == getItemCount() - 1) {
+                int left, right, top, bottom;
                 View view = holder.mView;
 
                 left = view.getPaddingLeft();
@@ -125,7 +133,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 view.setPadding(left, top, right, bottom);
             }
-        } else if(item instanceof SavesViewHolder){
+        } else if (item instanceof SavesViewHolder) {
             final SavesViewHolder holder = (SavesViewHolder) item;
             holder.mItem = mValues.get(position);
             holder.mTitleView.setText(mValues.get(position).getName());
@@ -166,7 +174,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             cal.add(Calendar.HOUR_OF_DAY, hc.get(Calendar.HOUR_OF_DAY)); // adds one hour
             cal.add(Calendar.MINUTE, hc.get(Calendar.MINUTE));
 
-            if(holder.getCounter() != null) {
+            if (holder.getCounter() != null) {
                 holder.getCounter().cancel();
             }
 
@@ -175,8 +183,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public void fadeTransition(final float start, final float end, final View view, final String url){
-        ValueAnimator animator = ValueAnimator.ofFloat(start,end);
+    public void fadeTransition(final float start, final float end, final View view, final String url) {
+        ValueAnimator animator = ValueAnimator.ofFloat(start, end);
         animator.setDuration(500);
 
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -189,8 +197,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                    NetworkImageView networkImageView = (NetworkImageView) view;
-                    networkImageView.setImageUrl(url, mImageLoader);
+                NetworkImageView networkImageView = (NetworkImageView) view;
+                networkImageView.setImageUrl(url, mImageLoader);
             }
 
             @Override
@@ -210,32 +218,32 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         animator.start();
     }
 
-    public void addShow(Show show){
+    public void addShow(Show show) {
         mValues.add(show);
-        notifyItemInserted(mValues.size() - 1 );
+        notifyItemInserted(mValues.size() - 1);
         notifyDataSetChanged();
     }
 
-    public void removeShow(Show show){
+    public void removeShow(Show show) {
         int position = mValues.indexOf(show);
         mValues.remove(position);
         notifyItemRemoved(position);
     }
 
-    public void clearItems(){
+    public void clearItems() {
         mValues.clear();
         notifyDataSetChanged();
     }
 
-    public void sortShows()
-    {
-        Collections.sort(mValues, new Comparator<Show>(){
+    public void sortShows() {
+        Collections.sort(mValues, new Comparator<Show>() {
             @Override
-            public int compare(Show o1, Show o2){
+            public int compare(Show o1, Show o2) {
                 return o1.getName().compareToIgnoreCase(o2.getName());
             }
         });
     }
+
     @Override
     public int getItemCount() {
         return mValues.size();
@@ -244,14 +252,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     /**
      * This enum will be used to define the different types of list the adapter supports
      */
-    public enum ListType {SEARCH, DISCOVER, SAVES}
+    public enum ListType {
+        SEARCH, DISCOVER, SAVES
+    }
 
     public class DiscoverViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         //public final TextView mSummaryView;
         public final TextView mTitleView;
         public final NetworkImageView mImageView;
-        public final ImageView mAddView;
+        public final CheckableImageView mAddView;
         public Show mItem;
 
         public DiscoverViewHolder(View view) {
@@ -260,7 +270,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             //mSummaryView = (TextView) view.findViewById(R.id.summary);
             mTitleView = (TextView) view.findViewById(R.id.title);
             mImageView = (NetworkImageView) view.findViewById(R.id.showimage);
-            mAddView = (ImageView) view.findViewById(R.id.add_view);
+            mAddView = (CheckableImageView) view.findViewById(R.id.add_view);
         }
 
         @Override
@@ -308,11 +318,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mTimer = (TextView) view.findViewById(R.id.countdown_timer);
         }
 
-        public void setCounterClass(CounterClass counter){
+        public void setCounterClass(CounterClass counter) {
             this.counter = counter;
         }
 
-        public CounterClass getCounter(){
+        public CounterClass getCounter() {
             return counter;
         }
 

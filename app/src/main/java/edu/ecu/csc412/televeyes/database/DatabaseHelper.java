@@ -78,6 +78,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void removeShow(Show show){
+        removeShow(show.getId());
+    }
+
+    public void removeShow(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = KEY_ID + "=?";
+        String[] whereArgs = new String[]{String.valueOf(id)};
+        db.delete(TABLE_SHOWS, whereClause, whereArgs);
+    }
+
+    public boolean isShowSaved(Show show){
+        return isShowSaved(show.getId());
+    }
+    public boolean isShowSaved(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = new String[]{KEY_ID};
+        String whereClause = KEY_ID + "=?";
+        String[] whereArgs = new String[]{String.valueOf(id)};
+        Cursor c = db.query(TABLE_SHOWS, columns, whereClause, whereArgs, null, null, null);
+        return c.getCount() != 0;
+    }
+
     public List<Integer> getShowIds(){
         SQLiteDatabase db = this.getReadableDatabase();
         final List<Integer> shows = new ArrayList<>();

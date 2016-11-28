@@ -35,9 +35,9 @@ public class SearchActivity extends AppCompatActivity implements DiscoverFragmen
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.logo);
         handleIntent(getIntent());
     }
-
 
     @Override
     protected void onNewIntent(Intent intent) {

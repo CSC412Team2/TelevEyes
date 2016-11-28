@@ -9,8 +9,7 @@
         android:id="@+id/showimage"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_alignParentLeft="true"
-        android:scaleType="fitCenter" />
+        android:layout_alignParentLeft="true" />
 
         <TextView
             android:id="@+id/title"
@@ -36,13 +35,15 @@
             android:ellipsize="end"
             android:maxLines="2" />
 
-    <ImageView
+    <edu.ecu.csc412.televeyes.view.CheckableImageView
         android:id="@+id/add_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|right"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:layout_marginRight="20dp" />
+        android:background="@drawable/heart_state"
+        android:layout_marginRight="20dp"
+        android:alpha="0.5"
+        android:backgroundTint="@color/colorLike"/>
 </RelativeLayout>
