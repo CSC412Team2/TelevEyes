@@ -10,14 +10,14 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.ecu.csc412.televeyes.ApplicationSingleton;
 import edu.ecu.csc412.televeyes.R;
 import edu.ecu.csc412.televeyes.dummy.DummyContent.DummyItem;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class NotiRecyclerViewAdapter extends RecyclerView.Adapter<NotiRecyclerViewAdapter.ViewHolder> {
 
@@ -28,7 +28,7 @@ public class NotiRecyclerViewAdapter extends RecyclerView.Adapter<NotiRecyclerVi
         TVMaze.getInstance().getSchedule(6, new TVMaze.OnShowSearchListener() {
             @Override
             public void onResults(List<Show> shows) {
-                for(int i = 0; i < shows.size(); i++){
+                for (int i = 0; i < shows.size(); i++) {
                     mValues.add(shows.get(i).getName() + "    A new episode is about to air");
                     notifyDataSetChanged();
                 }
@@ -50,7 +50,7 @@ public class NotiRecyclerViewAdapter extends RecyclerView.Adapter<NotiRecyclerVi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        if(getItemCount() != 0) {
+        if (getItemCount() != 0) {
             holder.mContentView.setText(mValues.get(position));
 
             holder.mView.setOnClickListener(new View.OnClickListener() {

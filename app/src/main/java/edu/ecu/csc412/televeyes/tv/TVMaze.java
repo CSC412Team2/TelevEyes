@@ -36,25 +36,26 @@ public class TVMaze {
     private Gson gson;
     private RequestQueue requestQueue;
 
-    public static TVMaze getInstance(){
-        if(sInstance == null){
+    public static TVMaze getInstance() {
+        if (sInstance == null) {
             sInstance = new TVMaze();
         }
         return sInstance;
     }
 
-    private TVMaze(){
+    private TVMaze() {
         gson = new Gson();
         requestQueue = VolleySingleton.getInstance().getRequestQueue();
     }
 
     //TODO Add filtering options
+
     /**
-     * @param maxResults number of results to return
+     * @param maxResults           number of results to return
      * @param onShowSearchListener code to execute once the result is retrived
-     * @param errorListener what to do if the network request fails
+     * @param errorListener        what to do if the network request fails
      */
-    public void getSchedule(final int maxResults, final OnShowSearchListener onShowSearchListener, Response.ErrorListener errorListener){
+    public void getSchedule(final int maxResults, final OnShowSearchListener onShowSearchListener, Response.ErrorListener errorListener) {
         StringRequest request = new StringRequest(schedule, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -64,7 +65,7 @@ public class TVMaze {
 
                 List<Show> shows = new ArrayList<>(parsed.size());
 
-                for(int i = 0; i < parsed.size(); i++){
+                for (int i = 0; i < parsed.size(); i++) {
                     shows.add(new Show(parsed.get(i)));
                 }
 
@@ -79,12 +80,12 @@ public class TVMaze {
     }
 
     /**
-     * @param query Search query
-     * @param maxResults maximum number of results to return
+     * @param query                Search query
+     * @param maxResults           maximum number of results to return
      * @param onShowSearchListener what to do once the results are returned
-     * @param errorListener what to do if the network request fails
+     * @param errorListener        what to do if the network request fails
      */
-    public void showSearch(String query, final int maxResults, final OnShowSearchListener onShowSearchListener, Response.ErrorListener errorListener){
+    public void showSearch(String query, final int maxResults, final OnShowSearchListener onShowSearchListener, Response.ErrorListener errorListener) {
         StringRequest request = new StringRequest(multiSearch + query, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -94,7 +95,7 @@ public class TVMaze {
 
                 List<Show> shows = new ArrayList<>(parsed.size());
 
-                for(int i = 0; i < parsed.size(); i++){
+                for (int i = 0; i < parsed.size(); i++) {
                     shows.add(new Show(parsed.get(i)));
                 }
 
@@ -108,7 +109,7 @@ public class TVMaze {
         requestQueue.add(request);
     }
 
-    public void getShowFromId(int Id, final OnShowLookupListener onShowLookupListener, Response.ErrorListener errorListener){
+    public void getShowFromId(int Id, final OnShowLookupListener onShowLookupListener, Response.ErrorListener errorListener) {
         StringRequest request = new StringRequest(lookup + Id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -120,7 +121,7 @@ public class TVMaze {
         requestQueue.add(request);
     }
 
-    public void getSeasonsFromId(int id, final OnSeasonLookupListener onSeasonLookupListener, Response.ErrorListener errorListener){
+    public void getSeasonsFromId(int id, final OnSeasonLookupListener onSeasonLookupListener, Response.ErrorListener errorListener) {
         StringRequest request = new StringRequest(lookup + id + seasons, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -130,7 +131,7 @@ public class TVMaze {
                 List<edu.ecu.csc412.televeyes.json.Season> parsed = gson.fromJson(response, collectionType);
                 List<Season> seasons = new ArrayList<>(parsed.size());
 
-                for(int i = 0; i < parsed.size(); i++){
+                for (int i = 0; i < parsed.size(); i++) {
                     seasons.add(new Season(parsed.get(i)));
                 }
 
@@ -140,7 +141,7 @@ public class TVMaze {
         requestQueue.add(request);
     }
 
-    public void getEpisodesFromId(int id, final OnEpisodeLookupListener episodeLookupListener, Response.ErrorListener errorListener){
+    public void getEpisodesFromId(int id, final OnEpisodeLookupListener episodeLookupListener, Response.ErrorListener errorListener) {
         StringRequest request = new StringRequest(lookup + id + episodes, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -151,7 +152,7 @@ public class TVMaze {
 
                 List<Episode> episodes = new ArrayList<>(parsed.size());
 
-                for(int i = 0; i < parsed.size(); i++){
+                for (int i = 0; i < parsed.size(); i++) {
                     episodes.add(new Episode(parsed.get(i)));
                 }
 
@@ -166,16 +167,16 @@ public class TVMaze {
     }
 
 
-    private void truncateResults(List<?> list, int num){
-        if(num == -1) return;
-        while(list.size() > num) list.remove(list.size() - 1);
+    private void truncateResults(List<?> list, int num) {
+        if (num == -1) return;
+        while (list.size() > num) list.remove(list.size() - 1);
     }
 
     public interface OnShowLookupListener {
         void onResult(Show show);
     }
 
-    public interface OnShowSearchListener{
+    public interface OnShowSearchListener {
 
         /**
          * @param shows a list of objects containing the results

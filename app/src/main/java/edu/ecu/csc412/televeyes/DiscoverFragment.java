@@ -124,7 +124,7 @@ public class DiscoverFragment extends Fragment {
                 //Get the list view
                 RecyclerView view = (RecyclerView) getView();
 
-                if(adapter == null) {
+                if (adapter == null) {
 
                 }
                 adapter.clearItems();
@@ -132,7 +132,7 @@ public class DiscoverFragment extends Fragment {
 
                 //If the list view isn't null then set a new adapter
                 if (view != null) {
-                    for(Show show : shows) {
+                    for (Show show : shows) {
                         adapter.addShow(show);
                     }
                     view.invalidate();
@@ -147,8 +147,8 @@ public class DiscoverFragment extends Fragment {
         });
     }
 
-    public void refreshShows(final String cat){
-        if(cat.compareToIgnoreCase("all") == 0){
+    public void refreshShows(final String cat) {
+        if (cat.compareToIgnoreCase("all") == 0) {
             refreshShows();
         } else {
             TVMaze.getInstance().getSchedule(100, new TVMaze.OnShowSearchListener() {
@@ -159,23 +159,23 @@ public class DiscoverFragment extends Fragment {
 
                     Iterator it = results.iterator();
 
-                    while(it.hasNext()){
+                    while (it.hasNext()) {
                         boolean fits = false;
                         Show show = (Show) it.next();
                         List<String> genres = show.getGenres();
-                        for(String genre : genres){
-                            if(cat.compareToIgnoreCase(genre) == 0){
+                        for (String genre : genres) {
+                            if (cat.compareToIgnoreCase(genre) == 0) {
                                 fits = true;
                             }
                         }
 
-                        if(!fits) it.remove();
+                        if (!fits) it.remove();
                     }
 
                     adapter.clearItems();
                     //If the list view isn't null then set a new adapter
                     if (view != null) {
-                        for(int i = 0; i < results.size(); i++) {
+                        for (int i = 0; i < results.size(); i++) {
                             adapter.addShow(results.get(i));
                         }
                         view.invalidate();

@@ -9,21 +9,21 @@ public class Episode {
     private int number;
     private int season;
 
-    public Episode(edu.ecu.csc412.televeyes.json.Episode episode){
+    public Episode(edu.ecu.csc412.televeyes.json.Episode episode) {
         name = episode.name;
         number = episode.number;
         season = episode.season;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public int getNumber(){
+    public int getNumber() {
         return number;
     }
 
-    public int getSeason(){
+    public int getSeason() {
         return season;
     }
 }

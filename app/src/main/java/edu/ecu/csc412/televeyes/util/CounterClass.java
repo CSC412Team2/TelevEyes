@@ -2,20 +2,14 @@ package edu.ecu.csc412.televeyes.util;
 
 import android.content.Context;
 import android.os.CountDownTimer;
-import android.text.format.DateUtils;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
 import edu.ecu.csc412.televeyes.model.Show;
-import edu.ecu.csc412.televeyes.util.Util;
 
 /**
  * Created by jilli on 11/3/2016.
@@ -79,7 +73,6 @@ public class CounterClass extends CountDownTimer {
         System.out.print(cdClock);
         textView.setText(cdClock);
     }
-
 
 
     @Override

@@ -30,7 +30,7 @@
                 android:layout_height="100dp"
                 android:id="@+id/box_art"
                 android:scaleType="fitCenter"
-                android:src="@android:drawable/screen_background_dark_transparent"/>
+                android:src="@android:drawable/screen_background_dark_transparent" />
 
 
             <LinearLayout
@@ -52,24 +52,24 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/air_time"/>
+                    android:id="@+id/air_time" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/show_genres"/>
+                    android:id="@+id/show_genres" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/show_score"/>
+                    android:id="@+id/show_score" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:srcCompat="@android:drawable/ic_input_add"
                     android:id="@+id/add_show"
-                    android:layout_gravity="left"/>
+                    android:layout_gravity="left" />
             </LinearLayout>
 
         </LinearLayout>
@@ -80,14 +80,13 @@
             android:id="@+id/show_synop"
             android:padding="@dimen/activity_horizontal_margin"
             android:maxLines="5"
-            android:ellipsize="end"/>
+            android:ellipsize="end" />
 
         <ExpandableListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/season_view"/>
+            android:id="@+id/season_view" />
     </LinearLayout>
-
 
 
     <android.support.design.widget.AppBarLayout
@@ -104,8 +103,7 @@
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:logo="@mipmap/ic_launcher">
-        </android.support.v7.widget.Toolbar>
+            app:logo="@mipmap/ic_launcher"></android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-    </android.support.design.widget.CoordinatorLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -24,7 +24,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     Context context;
 
 
-    public ExpandableListAdapter(List<Season> seasons, List<Episode> episodes, Context context){
+    public ExpandableListAdapter(List<Season> seasons, List<Episode> episodes, Context context) {
         this.seasons = seasons;
         this.episodes = episodes;
         this.context = context;
@@ -64,7 +64,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-       return childPosition;
+        return childPosition;
     }
 
     @Override

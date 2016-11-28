@@ -8,7 +8,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -23,16 +22,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import edu.ecu.csc412.televeyes.util.CounterClass;
-import edu.ecu.csc412.televeyes.R;
 import edu.ecu.csc412.televeyes.DiscoverFragment.OnListFragmentInteractionListener;
+import edu.ecu.csc412.televeyes.R;
 import edu.ecu.csc412.televeyes.SynActivity;
 import edu.ecu.csc412.televeyes.VolleySingleton;
 import edu.ecu.csc412.televeyes.database.DatabaseHelper;
 import edu.ecu.csc412.televeyes.dummy.DummyContent.DummyItem;
 import edu.ecu.csc412.televeyes.model.Show;
+import edu.ecu.csc412.televeyes.util.CounterClass;
 import edu.ecu.csc412.televeyes.util.Util;
 import edu.ecu.csc412.televeyes.view.CheckableImageView;
+
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.

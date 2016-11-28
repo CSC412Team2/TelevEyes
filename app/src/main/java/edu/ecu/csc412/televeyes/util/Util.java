@@ -20,8 +20,8 @@ public class Util {
         return cal.getTime();
     }
 
-    public static int getDayFromString(String day){
-        switch(day){
+    public static int getDayFromString(String day) {
+        switch (day) {
             case "Sunday":
                 return 1;
             case "Monday":

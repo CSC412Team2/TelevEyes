@@ -1,13 +1,16 @@
 package edu.ecu.csc412.televeyes;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.BaseColumns;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -41,10 +44,6 @@ import edu.ecu.csc412.televeyes.tv.TVMaze;
 import edu.ecu.csc412.televeyes.view.SlidingTabLayout;
 
 //notifications
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.support.v4.app.NotificationCompat;
 
 
 public class MainActivity extends AppCompatActivity implements DiscoverFragment.OnListFragmentInteractionListener {
@@ -101,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
         mCategories = getResources().getStringArray(R.array.categories);
         mDrawerList = (ListView) findViewById(R.id.filter_drawer);
 
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.app_name,R.string.app_name);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
@@ -190,12 +189,12 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
 
 
     private void displayDataItems(final String category) {
-        if(discoverFragment == null){
+        if (discoverFragment == null) {
             discoverFragment = DiscoverFragment.newInstance(1);
         }
         discoverFragment.refreshShows(category);
 
-        if(showFragment == null){
+        if (showFragment == null) {
             showFragment = ShowFragment.newInstance(getApplicationContext(), 1);
         }
         showFragment.refreshShows(category);
@@ -344,12 +343,12 @@ public class MainActivity extends AppCompatActivity implements DiscoverFragment.
             // Return the corresponding fragment depending on position.
             switch (position) {
                 case 0:
-                    if(discoverFragment == null){
+                    if (discoverFragment == null) {
                         discoverFragment = DiscoverFragment.newInstance(1);
                     }
                     return discoverFragment;
                 case 1:
-                    if(showFragment == null){
+                    if (showFragment == null) {
                         showFragment = ShowFragment.newInstance(getApplicationContext(), 1);
                     }
                     return showFragment;

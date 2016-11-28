@@ -38,10 +38,11 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".SynActivity"
+        <activity
+            android:name=".SynActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="edu.ecu.csc412.televeyes.SHOW"/>
+                <action android:name="edu.ecu.csc412.televeyes.SHOW" />
             </intent-filter>
         </activity>
     </application>

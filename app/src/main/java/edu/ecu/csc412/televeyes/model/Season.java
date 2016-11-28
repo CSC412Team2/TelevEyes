@@ -7,11 +7,11 @@ package edu.ecu.csc412.televeyes.model;
 public class Season {
     private int number;
 
-    public Season(edu.ecu.csc412.televeyes.json.Season season){
+    public Season(edu.ecu.csc412.televeyes.json.Season season) {
         number = season.getNumber();
     }
 
-    public int getNumber(){
+    public int getNumber() {
         return number;
     }
 }

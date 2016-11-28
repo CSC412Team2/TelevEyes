@@ -3,8 +3,8 @@ package edu.ecu.csc412.televeyes;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +22,7 @@ import edu.ecu.csc412.televeyes.adapter.RecyclerViewAdapter;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
 
-public class SearchActivity extends AppCompatActivity implements DiscoverFragment.OnListFragmentInteractionListener{
+public class SearchActivity extends AppCompatActivity implements DiscoverFragment.OnListFragmentInteractionListener {
 
     private RecyclerView view;
     private TextView searchLabel;

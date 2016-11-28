@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.ecu.csc412.televeyes.adapter.NotiRecyclerViewAdapter;
-import edu.ecu.csc412.televeyes.dummy.DummyContent;
 import edu.ecu.csc412.televeyes.dummy.DummyContent.DummyItem;
 import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
 
