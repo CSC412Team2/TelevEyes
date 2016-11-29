@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -16,5 +16,40 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="circular_imageview_style">
+        <item name="android:layout_width">@dimen/circular_size</item>
+        <item name="android:layout_height">@dimen/circular_size</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+    </style>
+
+    <style name="show_title_style" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?attr/textAppearanceListItem</item>
+        <item name="android:layout_toRightOf">@id/showimage</item>
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="card_view_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">56dp</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="recycler_view_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
 
 </resources>

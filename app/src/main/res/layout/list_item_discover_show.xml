@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground">
+    style="@style/card_view_style">
 
     <edu.ecu.csc412.televeyes.view.CircularNetworkImageView
         android:id="@+id/showimage"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_alignParentLeft="true" />
+        style="@style/circular_imageview_style" />
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:textSize="15sp"
-        android:textStyle="normal|bold"
-        android:layout_toRightOf="@id/showimage" />
+        style="@style/show_title_style" />
 
     <TextView
         android:id="@+id/summary"
@@ -42,7 +31,5 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@drawable/heart_state"
-        android:layout_marginRight="20dp"
-        android:alpha="0.5"
-        android:backgroundTint="@color/colorLike" />
+        android:layout_marginRight="20dp" />
 </RelativeLayout>

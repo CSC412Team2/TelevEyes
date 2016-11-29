@@ -72,8 +72,10 @@ public class DiscoverFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        shows = new ArrayList<>();
-        adapter = new RecyclerViewAdapter(shows, RecyclerViewAdapter.ListType.DISCOVER, getActivity().getApplicationContext());
+        if(adapter == null) {
+            shows = new ArrayList<>();
+            adapter = new RecyclerViewAdapter(shows, RecyclerViewAdapter.ListType.DISCOVER);
+        }
     }
 
     @Override
@@ -92,8 +94,10 @@ public class DiscoverFragment extends Fragment {
                 RecyclerView view = (RecyclerView) getView();
 
                 if (adapter == null) {
-
+                    shows = new ArrayList<>();
+                    adapter = new RecyclerViewAdapter(shows, RecyclerViewAdapter.ListType.DISCOVER);
                 }
+
                 adapter.clearItems();
 
 

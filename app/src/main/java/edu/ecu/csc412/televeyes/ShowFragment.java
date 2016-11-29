@@ -24,7 +24,7 @@ import edu.ecu.csc412.televeyes.tv.TVMaze;
 import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
 
 
-public class ShowFragment extends Fragment implements DiscoverFragment.OnListFragmentInteractionListener {
+public class ShowFragment extends Fragment {
 
     private static DatabaseHelper databaseHelper;
 
@@ -64,7 +64,7 @@ public class ShowFragment extends Fragment implements DiscoverFragment.OnListFra
             List<Show> items = new ArrayList<>();
 
             //If the list view isn't null then set a new adapter
-            adapter = new RecyclerViewAdapter(items, this, RecyclerViewAdapter.ListType.SAVES, getActivity().getApplicationContext());
+            adapter = new RecyclerViewAdapter(items, RecyclerViewAdapter.ListType.SAVES);
 
             recyclerView.setAdapter(adapter);
             view.invalidate();
@@ -130,12 +130,7 @@ public class ShowFragment extends Fragment implements DiscoverFragment.OnListFra
         }
     }
 
-    @Override
-    public void onListFragmentInteraction(Show item) {
-
-    }
-
-
+    //TODO What was I even gonna do here? probably should remove it if I have no use for it anymore
     private static void refresh(boolean filter) {
 
     }

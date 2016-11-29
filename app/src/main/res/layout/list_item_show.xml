@@ -6,21 +6,15 @@
 
     <edu.ecu.csc412.televeyes.view.CircularNetworkImageView
         android:id="@+id/showimage"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentLeft="true"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter"
+        android:layout_centerVertical="true"/>
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:textSize="15sp"
-        android:textStyle="normal|bold"
-        android:layout_toRightOf="@id/showimage" />
+        style="@style/show_title_style" />
 
 
 </RelativeLayout>

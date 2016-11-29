@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 
+import edu.ecu.csc412.televeyes.ApplicationSingleton;
 import edu.ecu.csc412.televeyes.view.CircularNetworkImageView;
 
 import java.text.ParseException;
@@ -38,11 +39,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private ListType listType;
     private Context context;
 
-    public RecyclerViewAdapter(List<Show> items, ListType listType, Context context) {
+    public RecyclerViewAdapter(List<Show> items, ListType listType) {
         mValues = items;
         mImageLoader = VolleySingleton.getInstance().getImageLoader();
         this.listType = listType;
-        this.context = context;
+        this.context = ApplicationSingleton.getAppContext();
     }
 
     @Override
@@ -137,6 +138,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
         });
 
+        if(position == 0){
+
+        }
+
         if (position == getItemCount() - 1) {
             int left, right, top, bottom;
             View view = holder.mView;
@@ -145,7 +150,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             right = view.getPaddingRight();
             top = view.getPaddingTop();
 
-            bottom = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 14, context.getResources().getDisplayMetrics());
+            bottom = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, context.getResources().getDisplayMetrics());
 
             view.setPadding(left, top, right, bottom);
         }

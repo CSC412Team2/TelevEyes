@@ -63,13 +63,12 @@ public class SearchActivity extends AppCompatActivity {
             final String query = intent.getStringExtra(SearchManager.QUERY);
             searchLabel = (TextView) findViewById(R.id.results_label);
 
-            final SearchActivity searchActivity = this;
             TVMaze.getInstance().showSearch(query, 25, new TVMaze.OnShowSearchListener() {
                 @Override
                 public void onResults(List<Show> shows) {
                     view = (RecyclerView) findViewById(R.id.search_resuts);
                     if (view != null) {
-                        view.setAdapter(new RecyclerViewAdapter(shows, RecyclerViewAdapter.ListType.SEARCH, getApplicationContext()));
+                        view.setAdapter(new RecyclerViewAdapter(shows, RecyclerViewAdapter.ListType.SEARCH));
                         view.invalidate();
                     }
                     searchLabel.setText("Showing " + shows.size() + " results for \"" + query + "\"");
