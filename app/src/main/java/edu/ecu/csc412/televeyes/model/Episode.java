@@ -9,7 +9,7 @@ public class Episode {
     private int number;
     private int season;
 
-    public Episode(edu.ecu.csc412.televeyes.json.Episode episode) {
+    public Episode(edu.ecu.csc412.televeyes.json.tvmaze.Episode episode) {
         name = episode.name;
         number = episode.number;
         season = episode.season;

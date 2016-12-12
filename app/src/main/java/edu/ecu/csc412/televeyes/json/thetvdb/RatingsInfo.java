@@ -1,14 +1,16 @@
-package edu.ecu.csc412.televeyes.json;
 
+package edu.ecu.csc412.televeyes.json.thetvdb;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
-public class Rating {
+public class RatingsInfo {
 
     @SerializedName("average")
     @Expose
     public double average;
+    @SerializedName("count")
+    @Expose
+    public Integer count;
 
 }

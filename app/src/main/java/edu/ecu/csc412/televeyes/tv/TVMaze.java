@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ecu.csc412.televeyes.VolleySingleton;
-import edu.ecu.csc412.televeyes.json.Series;
-import edu.ecu.csc412.televeyes.json.ShowContainer;
+import edu.ecu.csc412.televeyes.json.tvmaze.Series;
+import edu.ecu.csc412.televeyes.json.tvmaze.ShowContainer;
 import edu.ecu.csc412.televeyes.model.Episode;
 import edu.ecu.csc412.televeyes.model.Season;
 import edu.ecu.csc412.televeyes.model.Show;
@@ -113,7 +113,7 @@ public class TVMaze {
         StringRequest request = new StringRequest(lookup + Id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                edu.ecu.csc412.televeyes.json.Show show = gson.fromJson(response, edu.ecu.csc412.televeyes.json.Show.class);
+                edu.ecu.csc412.televeyes.json.tvmaze.Show show = gson.fromJson(response, edu.ecu.csc412.televeyes.json.tvmaze.Show.class);
                 //results are sent to the listener
                 onShowLookupListener.onResult(new Show(show));
             }
@@ -125,10 +125,10 @@ public class TVMaze {
         StringRequest request = new StringRequest(lookup + id + seasons, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Type collectionType = new TypeToken<List<edu.ecu.csc412.televeyes.json.Season>>() {
+                Type collectionType = new TypeToken<List<edu.ecu.csc412.televeyes.json.tvmaze.Season>>() {
                 }.getType();
 
-                List<edu.ecu.csc412.televeyes.json.Season> parsed = gson.fromJson(response, collectionType);
+                List<edu.ecu.csc412.televeyes.json.tvmaze.Season> parsed = gson.fromJson(response, collectionType);
                 List<Season> seasons = new ArrayList<>(parsed.size());
 
                 for (int i = 0; i < parsed.size(); i++) {
@@ -145,10 +145,10 @@ public class TVMaze {
         StringRequest request = new StringRequest(lookup + id + episodes, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Type collectionType = new TypeToken<List<edu.ecu.csc412.televeyes.json.Episode>>() {
+                Type collectionType = new TypeToken<List<edu.ecu.csc412.televeyes.json.tvmaze.Episode>>() {
                 }.getType();
 
-                List<edu.ecu.csc412.televeyes.json.Episode> parsed = gson.fromJson(response, collectionType);
+                List<edu.ecu.csc412.televeyes.json.tvmaze.Episode> parsed = gson.fromJson(response, collectionType);
 
                 List<Episode> episodes = new ArrayList<>(parsed.size());
 

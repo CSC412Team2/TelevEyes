@@ -30,11 +30,16 @@ public class ShowFragment extends Fragment {
 
     private RecyclerViewAdapter adapter;
 
+    private static ShowFragment sInstance;
+
+    private static String lastCat;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public ShowFragment() {
+        sInstance = this;
     }
 
     public static ShowFragment newInstance() {
@@ -63,7 +68,13 @@ public class ShowFragment extends Fragment {
 
             List<Show> items = new ArrayList<>();
 
-            //If the list view isn't null then set a new adapter
+            //If the list view isn't null then set a new ada
+            //
+            //
+            //
+            //
+            //
+            // pter
             adapter = new RecyclerViewAdapter(items, RecyclerViewAdapter.ListType.SAVES);
 
             recyclerView.setAdapter(adapter);
@@ -130,9 +141,14 @@ public class ShowFragment extends Fragment {
         }
     }
 
-    //TODO What was I even gonna do here? probably should remove it if I have no use for it anymore
     private static void refresh(boolean filter) {
-
+        if(sInstance != null) {
+            if(filter) {
+                sInstance.refreshShows();
+            } else {
+                sInstance.refreshShows(lastCat);
+            }
+        }
     }
 
 }

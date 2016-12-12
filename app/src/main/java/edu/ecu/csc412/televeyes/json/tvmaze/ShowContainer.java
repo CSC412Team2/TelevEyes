@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.json;
+package edu.ecu.csc412.televeyes.json.tvmaze;
 
 /**
  * Created by joshu on 10/9/2016.

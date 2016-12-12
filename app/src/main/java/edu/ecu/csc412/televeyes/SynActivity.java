@@ -2,18 +2,25 @@ package edu.ecu.csc412.televeyes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
+import android.support.v7.graphics.Target;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.List;
 
@@ -22,9 +29,11 @@ import edu.ecu.csc412.televeyes.model.Episode;
 import edu.ecu.csc412.televeyes.model.Season;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
+import edu.ecu.csc412.televeyes.tv.TheTVDB;
+import edu.ecu.csc412.televeyes.view.SquareNetworkImageView;
 
 public class SynActivity extends AppCompatActivity {
-    private NetworkImageView mBoxArt;
+    private SquareNetworkImageView mSeriesBanner;
     private TextView mTitle;
     private TextView mNetwork;
     private TextView mAirTime;
@@ -33,6 +42,8 @@ public class SynActivity extends AppCompatActivity {
     private TextView mSynop;
     private ExpandableListView mSeasonView;
     private ExpandableListAdapter adapter;
+    private CollapsingToolbarLayout mCollapsingToolbar;
+    private AppBarLayout mAppbarLayout;
 
     private List<Season> seasons;
     private List<Episode> episodes;
@@ -46,6 +57,12 @@ public class SynActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -55,7 +72,7 @@ public class SynActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        mBoxArt = (NetworkImageView) findViewById(R.id.box_art);
+        mSeriesBanner = (SquareNetworkImageView) findViewById(R.id.series_banner);
         mTitle = (TextView) findViewById(R.id.show_title);
         mNetwork = (TextView) findViewById(R.id.show_network);
         mAirTime = (TextView) findViewById(R.id.air_time);
@@ -63,6 +80,8 @@ public class SynActivity extends AppCompatActivity {
         mScore = (TextView) findViewById(R.id.show_score);
         mSynop = (TextView) findViewById(R.id.show_synop);
         mSeasonView = (ExpandableListView) findViewById(R.id.season_view);
+        mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        mAppbarLayout = (AppBarLayout) findViewById(R.id.syn_appbar);
 
         handleIntent();
     }
@@ -73,14 +92,96 @@ public class SynActivity extends AppCompatActivity {
         if (action.compareToIgnoreCase("edu.ecu.csc412.televeyes.SHOW") == 0) {
             int id = getIntent().getIntExtra("SHOW_ID", 0);
 
+            getIntent().removeExtra("SHOW_ID");
+
             TVMaze.getInstance().getShowFromId(id, new TVMaze.OnShowLookupListener() {
                 @Override
                 public void onResult(final Show show) {
                     getSupportActionBar().setTitle(show.getName());
-                    mBoxArt.setImageUrl(show.getLargeImage() != null ? show.getLargeImage() : show.getImage(), VolleySingleton.getInstance().getImageLoader());
                     mTitle.setText(show.getName());
                     mNetwork.setText(show.getNetwork());
 
+                    mCollapsingToolbar.setTitle(" ");
+
+                    mAppbarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+                        boolean isShow = false;
+                        int scrollRange = -1;
+
+                        @Override
+                        public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                            if (scrollRange == -1) {
+                                scrollRange = appBarLayout.getTotalScrollRange();
+                            }
+                            if (scrollRange + verticalOffset == 0) {
+                                mCollapsingToolbar.setTitle(show.getName());
+                                isShow = true;
+                            } else if (isShow) {
+                                mCollapsingToolbar.setTitle(" ");//carefull there should a space between double quote otherwise it wont work
+                                isShow = false;
+                            }
+                        }
+                    });
+
+                    mSeriesBanner.addBitmapListener(new SquareNetworkImageView.OnBitmapSetListener() {
+                        @Override
+                        public void OnBitmapSet(Bitmap bm) {
+                            Palette palette = Palette.from(bm).generate();
+                            int def;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                def = getResources().getColor(R.color.colorPrimary, null);
+                            } else {
+                                def = getResources().getColor(R.color.colorPrimary);
+                            }
+
+                            Palette.Swatch lightSwatch;
+                            Palette.Swatch darkSwatch;
+
+                            if(palette.getLightVibrantSwatch() != null) {
+                                lightSwatch = palette.getLightVibrantSwatch();
+                            } else {
+                                lightSwatch = palette.getDominantSwatch();
+                            }
+
+                            if(palette.getDarkVibrantSwatch() != null){
+                                darkSwatch = palette.getDarkVibrantSwatch();
+                            } else if(palette.getDarkMutedSwatch() != null) {
+                                darkSwatch = palette.getDarkMutedSwatch();
+                            } else if(palette.getMutedSwatch() != null){
+                                darkSwatch = palette.getMutedSwatch();
+                            } else {
+                                darkSwatch = palette.getVibrantSwatch();
+                            }
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                Window window = getWindow();
+                                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                                window.setStatusBarColor(darkSwatch.getRgb());
+                            }
+
+                            mCollapsingToolbar.setExpandedTitleColor(lightSwatch.getTitleTextColor());
+                            mCollapsingToolbar.setContentScrimColor(lightSwatch.getRgb());
+                            mCollapsingToolbar.setStatusBarScrimColor(darkSwatch.getRgb());
+                        }
+                    });
+
+                    TheTVDB.getInstance(new TheTVDB.TokenListener() {
+                        @Override
+                        public void OnTokenReceived(String token) {
+                            TheTVDB.getInstance(null).getBanners(show.getThetvdb(), new TheTVDB.BannerListener() {
+                                @Override
+                                public void OnBanner(List<String> images) {
+                                    mSeriesBanner.setImageUrl(images.get(0), VolleySingleton.getInstance().getImageLoader());
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(SynActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        }
+                    });
                     String time = "";
                     List<String> days = show.getSchedule().getDays();
 
@@ -147,6 +248,12 @@ public class SynActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        this.setIntent(intent);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
@@ -155,5 +262,10 @@ public class SynActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

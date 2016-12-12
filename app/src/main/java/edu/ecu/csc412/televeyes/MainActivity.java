@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ecu.csc412.televeyes.adapter.SuggestionAdapter;
-import edu.ecu.csc412.televeyes.json.ShowContainer;
+import edu.ecu.csc412.televeyes.json.tvmaze.ShowContainer;
 import edu.ecu.csc412.televeyes.model.Show;
 import edu.ecu.csc412.televeyes.tv.TVMaze;
 import edu.ecu.csc412.televeyes.view.SlidingTabLayout;
@@ -213,10 +213,11 @@ public class MainActivity extends AppCompatActivity {
 
         searchSrcTextView.setDropDownBackgroundResource(android.R.drawable.screen_background_light);
 
+        final Context context = this;
         searchSrcTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SynActivity.ShowSynop(getApplicationContext(), searchShows.get(position).getId());
+                SynActivity.ShowSynop(context, searchShows.get(position).getId());
             }
         });
 

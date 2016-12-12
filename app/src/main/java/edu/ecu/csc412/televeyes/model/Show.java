@@ -2,8 +2,8 @@ package edu.ecu.csc412.televeyes.model;
 
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.json.Series;
-import edu.ecu.csc412.televeyes.json.ShowContainer;
+import edu.ecu.csc412.televeyes.json.tvmaze.Series;
+import edu.ecu.csc412.televeyes.json.tvmaze.ShowContainer;
 
 /**
  * Created by bi00dsh0t on 10/31/16.
@@ -19,6 +19,10 @@ public class Show {
     private List<String> genres;
     private String network;
 
+    private String imdb;
+    private String thetvdb;
+
+
     //TODO add suppport for multiple images
     private String image;
     private String largeImage;
@@ -26,26 +30,16 @@ public class Show {
     private Show() {
     }
 
-    public Show(int id, String name, String summary, edu.ecu.csc412.televeyes.json.Schedule schedule, int episodes, double rating, String image, String largeImage, List<String> genres, String network) {
-        this.id = id;
-        this.name = name;
-        this.summary = summary;
-        this.schedule = new Schedule(schedule);
-        this.numberOfEpisodes = episodes;
-        this.rating = rating;
-        this.largeImage = largeImage;
-        this.image = image;
-        this.genres = genres;
-        this.network = network;
-    }
-
-    public Show(edu.ecu.csc412.televeyes.json.Show show) {
+    public Show(edu.ecu.csc412.televeyes.json.tvmaze.Show show) {
         this.id = show.id;
         this.name = show.name;
         this.summary = show.summary;
         this.schedule = new Schedule(show.schedule);
         this.rating = show.rating.average;
         this.genres = show.genres;
+
+        this.imdb = show.externals.imdb;
+        this.thetvdb = show.externals.thetvdb;
 
         if (show.image != null) {
             if (show.image.medium != null) {
@@ -66,6 +60,9 @@ public class Show {
         this.numberOfEpisodes = -1;
         this.rating = container.score;
         this.genres = container.show.genres;
+
+        this.imdb = container.show.externals.imdb;
+        this.thetvdb = container.show.externals.thetvdb;
 
         if (container.show.image != null) {
             if (container.show.image.medium != null) {
@@ -139,6 +136,10 @@ public class Show {
         return network;
     }
 
+    public String getImdb(){ return imdb; }
+
+    public String getThetvdb() { return thetvdb; }
+
     @Override
     public boolean equals(Object other) {
         if (other == null) {
@@ -190,7 +191,7 @@ public class Show {
             this.days = days;
         }
 
-        public Schedule(edu.ecu.csc412.televeyes.json.Schedule schedule) {
+        public Schedule(edu.ecu.csc412.televeyes.json.tvmaze.Schedule schedule) {
             this.showTime = schedule.time;
             this.days = schedule.days;
         }
