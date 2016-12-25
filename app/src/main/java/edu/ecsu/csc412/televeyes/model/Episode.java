@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.model;
+package edu.ecsu.csc412.televeyes.model;
 
 /**
  * Created by bi00dsh0t on 11/23/16.
@@ -9,7 +9,7 @@ public class Episode {
     private int number;
     private int season;
 
-    public Episode(edu.ecu.csc412.televeyes.json.tvmaze.Episode episode) {
+    public Episode(edu.ecsu.csc412.televeyes.json.tvmaze.Episode episode) {
         name = episode.name;
         number = episode.number;
         season = episode.season;

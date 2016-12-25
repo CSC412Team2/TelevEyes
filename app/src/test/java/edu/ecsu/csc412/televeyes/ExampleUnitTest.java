@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes;
+package edu.ecsu.csc412.televeyes;
 
 import org.junit.Test;
 

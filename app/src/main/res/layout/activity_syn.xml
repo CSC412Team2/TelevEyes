@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="edu.ecu.csc412.televeyes.MainActivity">
+    tools:context="edu.ecsu.csc412.televeyes.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/syn_appbar"
@@ -25,7 +25,7 @@
             app:expandedTitleMarginEnd="64dp"
             android:fitsSystemWindows="true">
             
-            <edu.ecu.csc412.televeyes.view.SquareNetworkImageView
+            <edu.ecsu.csc412.televeyes.view.SquareNetworkImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/series_banner"
@@ -69,7 +69,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context="edu.ecu.csc412.televeyes.SynActivity"
+                tools:context="edu.ecsu.csc412.televeyes.SynActivity"
                 android:orientation="horizontal">
 
                 <LinearLayout

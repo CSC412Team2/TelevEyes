@@ -1,4 +1,3 @@
-
 /*
  * Copyright (C) 2015 Antonio Leiva
  *
@@ -15,22 +14,18 @@
  * limitations under the License.
  */
 
-package edu.ecu.csc412.televeyes.view;
+package edu.ecsu.csc412.televeyes.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-public class SquareNetworkImageView  extends NetworkImageView {
+public class SquareNetworkImageView extends NetworkImageView {
     private List<OnBitmapSetListener> mBitmapListeners = new ArrayList<>();
 
     public SquareNetworkImageView(Context context) {
@@ -47,9 +42,9 @@ public class SquareNetworkImageView  extends NetworkImageView {
 
     @Override
     public void setImageBitmap(Bitmap bm) {
-        if(bm==null) return;
+        if (bm == null) return;
 
-        for(int i = 0; i < mBitmapListeners.size(); i++){
+        for (int i = 0; i < mBitmapListeners.size(); i++) {
             mBitmapListeners.get(i).OnBitmapSet(bm);
         }
         super.setImageBitmap(bm);
@@ -63,12 +58,12 @@ public class SquareNetworkImageView  extends NetworkImageView {
         setMeasuredDimension(width, width);
     }
 
-    public void addBitmapListener(OnBitmapSetListener listener){
-        if(listener != null)
-        mBitmapListeners.add(listener);
+    public void addBitmapListener(OnBitmapSetListener listener) {
+        if (listener != null)
+            mBitmapListeners.add(listener);
     }
 
-    public void removeBitmapListener(OnBitmapSetListener listener){
+    public void removeBitmapListener(OnBitmapSetListener listener) {
         mBitmapListeners.remove(listener);
     }
 

@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.view;
+package edu.ecsu.csc412.televeyes.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -33,7 +33,7 @@ public class CircularNetworkImageView extends NetworkImageView {
 
     @Override
     public void setImageBitmap(Bitmap bm) {
-        if(bm==null) return;
+        if (bm == null) return;
         setImageDrawable(new BitmapDrawable(mContext.getResources(),
                 getCircularBitmap(bm)));
     }
@@ -60,9 +60,9 @@ public class CircularNetworkImageView extends NetworkImageView {
         paint.setAntiAlias(true);
         paint.setShader(shader);
 
-        RectF rect = new RectF(0, 0 ,size,size);
-        int radius = size/2;
-        canvas.drawRoundRect(rect, radius,radius, paint);
+        RectF rect = new RectF(0, 0, size, size);
+        int radius = size / 2;
+        canvas.drawRoundRect(rect, radius, radius, paint);
         return output;
     }
 

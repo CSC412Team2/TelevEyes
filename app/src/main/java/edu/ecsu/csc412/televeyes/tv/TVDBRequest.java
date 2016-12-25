@@ -1,7 +1,6 @@
-package edu.ecu.csc412.televeyes.tv;
+package edu.ecsu.csc412.televeyes.tv;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
@@ -15,6 +14,7 @@ import java.util.Map;
 public class TVDBRequest extends StringRequest {
 
     private String token;
+
     public TVDBRequest(String url, String token, Response.Listener<String> listener, Response.ErrorListener errorListener) {
         super(Method.GET, url, listener, errorListener);
         this.token = token;

@@ -1,18 +1,16 @@
-package edu.ecu.csc412.televeyes;
+package edu.ecsu.csc412.televeyes;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.ecu.csc412.televeyes.adapter.NotiRecyclerViewAdapter;
-import edu.ecu.csc412.televeyes.dummy.DummyContent.DummyItem;
-import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
+import edu.ecsu.csc412.televeyes.adapter.NotiRecyclerViewAdapter;
+import edu.ecsu.csc412.televeyes.view.DividerItemDecoration;
 
 public class NotiFragment extends Fragment {
 

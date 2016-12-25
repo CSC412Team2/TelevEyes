@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.tv;
+package edu.ecsu.csc412.televeyes.tv;
 
 
 import com.android.volley.RequestQueue;
@@ -11,12 +11,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.VolleySingleton;
-import edu.ecu.csc412.televeyes.json.tvmaze.Series;
-import edu.ecu.csc412.televeyes.json.tvmaze.ShowContainer;
-import edu.ecu.csc412.televeyes.model.Episode;
-import edu.ecu.csc412.televeyes.model.Season;
-import edu.ecu.csc412.televeyes.model.Show;
+import edu.ecsu.csc412.televeyes.VolleySingleton;
+import edu.ecsu.csc412.televeyes.json.tvmaze.Series;
+import edu.ecsu.csc412.televeyes.json.tvmaze.ShowContainer;
+import edu.ecsu.csc412.televeyes.model.Episode;
+import edu.ecsu.csc412.televeyes.model.Season;
+import edu.ecsu.csc412.televeyes.model.Show;
 
 /**
  * Created by joshu on 10/2/2016.
@@ -36,16 +36,16 @@ public class TVMaze {
     private Gson gson;
     private RequestQueue requestQueue;
 
+    private TVMaze() {
+        gson = new Gson();
+        requestQueue = VolleySingleton.getInstance().getRequestQueue();
+    }
+
     public static TVMaze getInstance() {
         if (sInstance == null) {
             sInstance = new TVMaze();
         }
         return sInstance;
-    }
-
-    private TVMaze() {
-        gson = new Gson();
-        requestQueue = VolleySingleton.getInstance().getRequestQueue();
     }
 
     //TODO Add filtering options
@@ -113,7 +113,7 @@ public class TVMaze {
         StringRequest request = new StringRequest(lookup + Id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                edu.ecu.csc412.televeyes.json.tvmaze.Show show = gson.fromJson(response, edu.ecu.csc412.televeyes.json.tvmaze.Show.class);
+                edu.ecsu.csc412.televeyes.json.tvmaze.Show show = gson.fromJson(response, edu.ecsu.csc412.televeyes.json.tvmaze.Show.class);
                 //results are sent to the listener
                 onShowLookupListener.onResult(new Show(show));
             }
@@ -125,10 +125,10 @@ public class TVMaze {
         StringRequest request = new StringRequest(lookup + id + seasons, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Type collectionType = new TypeToken<List<edu.ecu.csc412.televeyes.json.tvmaze.Season>>() {
+                Type collectionType = new TypeToken<List<edu.ecsu.csc412.televeyes.json.tvmaze.Season>>() {
                 }.getType();
 
-                List<edu.ecu.csc412.televeyes.json.tvmaze.Season> parsed = gson.fromJson(response, collectionType);
+                List<edu.ecsu.csc412.televeyes.json.tvmaze.Season> parsed = gson.fromJson(response, collectionType);
                 List<Season> seasons = new ArrayList<>(parsed.size());
 
                 for (int i = 0; i < parsed.size(); i++) {
@@ -145,10 +145,10 @@ public class TVMaze {
         StringRequest request = new StringRequest(lookup + id + episodes, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Type collectionType = new TypeToken<List<edu.ecu.csc412.televeyes.json.tvmaze.Episode>>() {
+                Type collectionType = new TypeToken<List<edu.ecsu.csc412.televeyes.json.tvmaze.Episode>>() {
                 }.getType();
 
-                List<edu.ecu.csc412.televeyes.json.tvmaze.Episode> parsed = gson.fromJson(response, collectionType);
+                List<edu.ecsu.csc412.televeyes.json.tvmaze.Episode> parsed = gson.fromJson(response, collectionType);
 
                 List<Episode> episodes = new ArrayList<>(parsed.size());
 

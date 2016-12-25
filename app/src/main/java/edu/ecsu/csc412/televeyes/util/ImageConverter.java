@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.util;
+package edu.ecsu.csc412.televeyes.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

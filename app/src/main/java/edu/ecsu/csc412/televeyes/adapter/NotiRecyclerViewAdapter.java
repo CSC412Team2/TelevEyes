@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.adapter;
+package edu.ecsu.csc412.televeyes.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,11 +13,11 @@ import com.android.volley.VolleyError;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.ApplicationSingleton;
-import edu.ecu.csc412.televeyes.R;
-import edu.ecu.csc412.televeyes.dummy.DummyContent.DummyItem;
-import edu.ecu.csc412.televeyes.model.Show;
-import edu.ecu.csc412.televeyes.tv.TVMaze;
+import edu.ecsu.csc412.televeyes.ApplicationSingleton;
+import edu.ecsu.csc412.televeyes.R;
+import edu.ecsu.csc412.televeyes.dummy.DummyContent.DummyItem;
+import edu.ecsu.csc412.televeyes.model.Show;
+import edu.ecsu.csc412.televeyes.tv.TVMaze;
 
 public class NotiRecyclerViewAdapter extends RecyclerView.Adapter<NotiRecyclerViewAdapter.ViewHolder> {
 

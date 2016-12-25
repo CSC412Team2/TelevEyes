@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.dummy;
+package edu.ecsu.csc412.televeyes.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;

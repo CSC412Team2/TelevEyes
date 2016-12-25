@@ -7,7 +7,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "24.0.2"
     defaultConfig {
-        applicationId "edu.ecu.csc412.televeyes"
+        applicationId "edu.ecsu.csc412.televeyes"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1

@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes;
+package edu.ecsu.csc412.televeyes;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -37,24 +37,25 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.adapter.SuggestionAdapter;
-import edu.ecu.csc412.televeyes.json.tvmaze.ShowContainer;
-import edu.ecu.csc412.televeyes.model.Show;
-import edu.ecu.csc412.televeyes.tv.TVMaze;
-import edu.ecu.csc412.televeyes.view.SlidingTabLayout;
+import edu.ecsu.csc412.televeyes.adapter.SuggestionAdapter;
+import edu.ecsu.csc412.televeyes.json.tvmaze.ShowContainer;
+import edu.ecsu.csc412.televeyes.model.Show;
+import edu.ecsu.csc412.televeyes.tv.TVMaze;
+import edu.ecsu.csc412.televeyes.view.SlidingTabLayout;
 
 //notifications
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int uniqueID1 = 38294;
+    private static final int uniqueID2 = 53926;
     //Notification1 = notification for new episode about to air
     NotificationCompat.Builder notification1;
-    private static final int uniqueID1 = 38294;
     //Notification2 = notification for changes in the show's platform ie. time, day, channel, etc.
     NotificationCompat.Builder notification2;
-    private static final int uniqueID2 = 53926;
-
+    String[] mCategories;
+    SearchView.SearchAutoComplete searchSrcTextView;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -64,14 +65,10 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    String[] mCategories;
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
-
     private DiscoverFragment discoverFragment;
     private ShowFragment showFragment;
-
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -80,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
     private Gson gson;
     private RequestQueue requestQueue;
     private List<Show> searchShows;
-    SearchView.SearchAutoComplete searchSrcTextView;
-
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override

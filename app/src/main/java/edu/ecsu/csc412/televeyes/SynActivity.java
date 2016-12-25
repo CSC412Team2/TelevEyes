@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes;
+package edu.ecsu.csc412.televeyes;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
-import android.support.v7.graphics.Target;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
@@ -24,13 +23,13 @@ import com.android.volley.VolleyError;
 
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.adapter.ExpandableListAdapter;
-import edu.ecu.csc412.televeyes.model.Episode;
-import edu.ecu.csc412.televeyes.model.Season;
-import edu.ecu.csc412.televeyes.model.Show;
-import edu.ecu.csc412.televeyes.tv.TVMaze;
-import edu.ecu.csc412.televeyes.tv.TheTVDB;
-import edu.ecu.csc412.televeyes.view.SquareNetworkImageView;
+import edu.ecsu.csc412.televeyes.adapter.ExpandableListAdapter;
+import edu.ecsu.csc412.televeyes.model.Episode;
+import edu.ecsu.csc412.televeyes.model.Season;
+import edu.ecsu.csc412.televeyes.model.Show;
+import edu.ecsu.csc412.televeyes.tv.TVMaze;
+import edu.ecsu.csc412.televeyes.tv.TheTVDB;
+import edu.ecsu.csc412.televeyes.view.SquareNetworkImageView;
 
 public class SynActivity extends AppCompatActivity {
     private SquareNetworkImageView mSeriesBanner;
@@ -51,7 +50,7 @@ public class SynActivity extends AppCompatActivity {
     public static void ShowSynop(Context context, int id) {
         Intent intent = new Intent(context, SynActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setAction("edu.ecu.csc412.televeyes.SHOW");
+        intent.setAction("edu.ecsu.csc412.televeyes.SHOW");
         intent.putExtra("SHOW_ID", id);
         context.startActivity(intent);
     }
@@ -89,7 +88,7 @@ public class SynActivity extends AppCompatActivity {
     public void handleIntent() {
         String action = getIntent().getAction();
 
-        if (action.compareToIgnoreCase("edu.ecu.csc412.televeyes.SHOW") == 0) {
+        if (action.compareToIgnoreCase("edu.ecsu.csc412.televeyes.SHOW") == 0) {
             int id = getIntent().getIntExtra("SHOW_ID", 0);
 
             getIntent().removeExtra("SHOW_ID");
@@ -136,17 +135,17 @@ public class SynActivity extends AppCompatActivity {
                             Palette.Swatch lightSwatch;
                             Palette.Swatch darkSwatch;
 
-                            if(palette.getLightVibrantSwatch() != null) {
+                            if (palette.getLightVibrantSwatch() != null) {
                                 lightSwatch = palette.getLightVibrantSwatch();
                             } else {
                                 lightSwatch = palette.getDominantSwatch();
                             }
 
-                            if(palette.getDarkVibrantSwatch() != null){
+                            if (palette.getDarkVibrantSwatch() != null) {
                                 darkSwatch = palette.getDarkVibrantSwatch();
-                            } else if(palette.getDarkMutedSwatch() != null) {
+                            } else if (palette.getDarkMutedSwatch() != null) {
                                 darkSwatch = palette.getDarkMutedSwatch();
-                            } else if(palette.getMutedSwatch() != null){
+                            } else if (palette.getMutedSwatch() != null) {
                                 darkSwatch = palette.getMutedSwatch();
                             } else {
                                 darkSwatch = palette.getVibrantSwatch();

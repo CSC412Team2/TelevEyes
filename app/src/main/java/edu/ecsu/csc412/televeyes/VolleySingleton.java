@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes;
+package edu.ecsu.csc412.televeyes;
 
 /**
  * Created by joshu on 10/3/2016.

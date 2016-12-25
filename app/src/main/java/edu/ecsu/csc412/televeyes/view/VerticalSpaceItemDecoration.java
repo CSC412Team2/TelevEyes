@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.view;
+package edu.ecsu.csc412.televeyes.view;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

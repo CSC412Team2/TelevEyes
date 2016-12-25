@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.model;
+package edu.ecsu.csc412.televeyes.model;
 
 /**
  * Created by bi00dsh0t on 11/23/16.
@@ -7,7 +7,7 @@ package edu.ecu.csc412.televeyes.model;
 public class Season {
     private int number;
 
-    public Season(edu.ecu.csc412.televeyes.json.tvmaze.Season season) {
+    public Season(edu.ecsu.csc412.televeyes.json.tvmaze.Season season) {
         number = season.getNumber();
     }
 

@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.util;
+package edu.ecsu.csc412.televeyes.util;
 
 import android.content.Context;
 import android.os.CountDownTimer;
@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import edu.ecu.csc412.televeyes.model.Show;
+import edu.ecsu.csc412.televeyes.model.Show;
 
 /**
  * Created by jilli on 11/3/2016.

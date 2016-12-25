@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.adapter;
+package edu.ecsu.csc412.televeyes.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.R;
-import edu.ecu.csc412.televeyes.model.Episode;
-import edu.ecu.csc412.televeyes.model.Season;
+import edu.ecsu.csc412.televeyes.R;
+import edu.ecsu.csc412.televeyes.model.Episode;
+import edu.ecsu.csc412.televeyes.model.Season;
 
 /**
  * Created by bi00dsh0t on 11/23/16.

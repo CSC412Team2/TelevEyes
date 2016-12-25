@@ -1,9 +1,8 @@
-package edu.ecu.csc412.televeyes;
+package edu.ecsu.csc412.televeyes;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,22 +16,19 @@ import com.android.volley.VolleyError;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.adapter.RecyclerViewAdapter;
-import edu.ecu.csc412.televeyes.database.DatabaseHelper;
-import edu.ecu.csc412.televeyes.model.Show;
-import edu.ecu.csc412.televeyes.tv.TVMaze;
-import edu.ecu.csc412.televeyes.view.DividerItemDecoration;
+import edu.ecsu.csc412.televeyes.adapter.RecyclerViewAdapter;
+import edu.ecsu.csc412.televeyes.database.DatabaseHelper;
+import edu.ecsu.csc412.televeyes.model.Show;
+import edu.ecsu.csc412.televeyes.tv.TVMaze;
+import edu.ecsu.csc412.televeyes.view.DividerItemDecoration;
 
 
 public class ShowFragment extends Fragment {
 
     private static DatabaseHelper databaseHelper;
-
-    private RecyclerViewAdapter adapter;
-
     private static ShowFragment sInstance;
-
     private static String lastCat;
+    private RecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -46,6 +42,16 @@ public class ShowFragment extends Fragment {
         ShowFragment fragment = new ShowFragment();
         ShowFragment.databaseHelper = DatabaseHelper.getInstance();
         return fragment;
+    }
+
+    private static void refresh(boolean filter) {
+        if (sInstance != null) {
+            if (filter) {
+                sInstance.refreshShows();
+            } else {
+                sInstance.refreshShows(lastCat);
+            }
+        }
     }
 
     @Override
@@ -86,7 +92,6 @@ public class ShowFragment extends Fragment {
         }
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -138,16 +143,6 @@ public class ShowFragment extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
                 }
             });
-        }
-    }
-
-    private static void refresh(boolean filter) {
-        if(sInstance != null) {
-            if(filter) {
-                sInstance.refreshShows();
-            } else {
-                sInstance.refreshShows(lastCat);
-            }
         }
     }
 

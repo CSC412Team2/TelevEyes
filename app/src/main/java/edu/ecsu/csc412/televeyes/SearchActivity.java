@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes;
+package edu.ecsu.csc412.televeyes;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -18,9 +18,9 @@ import com.android.volley.VolleyError;
 
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.adapter.RecyclerViewAdapter;
-import edu.ecu.csc412.televeyes.model.Show;
-import edu.ecu.csc412.televeyes.tv.TVMaze;
+import edu.ecsu.csc412.televeyes.adapter.RecyclerViewAdapter;
+import edu.ecsu.csc412.televeyes.model.Show;
+import edu.ecsu.csc412.televeyes.tv.TVMaze;
 
 public class SearchActivity extends AppCompatActivity {
 

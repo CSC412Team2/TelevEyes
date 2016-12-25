@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.json.tvmaze;
+package edu.ecsu.csc412.televeyes.json.tvmaze;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

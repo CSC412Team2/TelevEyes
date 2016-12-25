@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes;
+package edu.ecsu.csc412.televeyes;
 
 import android.support.test.runner.AndroidJUnit4;
 
@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import edu.ecu.csc412.televeyes.json.thetvdb.Image;
-import edu.ecu.csc412.televeyes.json.thetvdb.ImageSummary;
-import edu.ecu.csc412.televeyes.tv.TheTVDB;
+import edu.ecsu.csc412.televeyes.json.thetvdb.Image;
+import edu.ecsu.csc412.televeyes.json.thetvdb.ImageSummary;
+import edu.ecsu.csc412.televeyes.tv.TheTVDB;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

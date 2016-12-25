@@ -1,9 +1,9 @@
-package edu.ecu.csc412.televeyes.model;
+package edu.ecsu.csc412.televeyes.model;
 
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.json.tvmaze.Series;
-import edu.ecu.csc412.televeyes.json.tvmaze.ShowContainer;
+import edu.ecsu.csc412.televeyes.json.tvmaze.Series;
+import edu.ecsu.csc412.televeyes.json.tvmaze.ShowContainer;
 
 /**
  * Created by bi00dsh0t on 10/31/16.
@@ -30,7 +30,7 @@ public class Show {
     private Show() {
     }
 
-    public Show(edu.ecu.csc412.televeyes.json.tvmaze.Show show) {
+    public Show(edu.ecsu.csc412.televeyes.json.tvmaze.Show show) {
         this.id = show.id;
         this.name = show.name;
         this.summary = show.summary;
@@ -136,9 +136,13 @@ public class Show {
         return network;
     }
 
-    public String getImdb(){ return imdb; }
+    public String getImdb() {
+        return imdb;
+    }
 
-    public String getThetvdb() { return thetvdb; }
+    public String getThetvdb() {
+        return thetvdb;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -191,7 +195,7 @@ public class Show {
             this.days = days;
         }
 
-        public Schedule(edu.ecu.csc412.televeyes.json.tvmaze.Schedule schedule) {
+        public Schedule(edu.ecsu.csc412.televeyes.json.tvmaze.Schedule schedule) {
             this.showTime = schedule.time;
             this.days = schedule.days;
         }

@@ -1,6 +1,5 @@
-package edu.ecu.csc412.televeyes.database;
+package edu.ecsu.csc412.televeyes.database;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,24 +8,22 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ecu.csc412.televeyes.ApplicationSingleton;
-import edu.ecu.csc412.televeyes.model.Show;
+import edu.ecsu.csc412.televeyes.ApplicationSingleton;
+import edu.ecsu.csc412.televeyes.model.Show;
 
 /**
  * Created by joshu on 11/3/2016.
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static DatabaseHelper sInstance;
-
+    // Database Name
+    public static final String DATABASE_NAME = "data.db";
     // All Static variables
     // Database Version
     private static final int DATABASE_VERSION = 1;
-    // Database Name
-    public static final String DATABASE_NAME = "data.db";
-
     private static final String TABLE_SHOWS = "shows_table";
     private static final String KEY_ID = "id";
+    private static DatabaseHelper sInstance;
 
     private DatabaseHelper() {
         super(ApplicationSingleton.getAppContext(), DATABASE_NAME, null, DATABASE_VERSION);

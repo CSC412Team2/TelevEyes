@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/card_view_style">
 
-    <edu.ecu.csc412.televeyes.view.CircularNetworkImageView
+    <edu.ecsu.csc412.televeyes.view.CircularNetworkImageView
         android:id="@+id/showimage"
         style="@style/circular_imageview_style" />
 
@@ -23,7 +23,7 @@
         android:ellipsize="end"
         android:maxLines="2" />
 
-    <edu.ecu.csc412.televeyes.view.CheckableImageView
+    <edu.ecsu.csc412.televeyes.view.CheckableImageView
         android:id="@+id/add_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

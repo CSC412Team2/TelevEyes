@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    tools:context="edu.ecu.csc412.televeyes.MainActivity">
+    tools:context="edu.ecsu.csc412.televeyes.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,13 +26,13 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/search_resuts"
-            android:name="edu.ecu.csc412.televeyes.ShowFragment"
+            android:name="edu.ecsu.csc412.televeyes.ShowFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             app:layoutManager="LinearLayoutManager"
-            tools:context="edu.ecu.csc412.televeyes.DiscoverFragment"
+            tools:context="edu.ecsu.csc412.televeyes.DiscoverFragment"
             tools:listitem="@layout/list_item_discover_show" />
     </LinearLayout>
 

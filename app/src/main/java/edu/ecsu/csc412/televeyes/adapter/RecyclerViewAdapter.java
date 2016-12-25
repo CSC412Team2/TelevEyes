@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.adapter;
+package edu.ecsu.csc412.televeyes.adapter;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 
-import edu.ecu.csc412.televeyes.ApplicationSingleton;
-import edu.ecu.csc412.televeyes.view.CircularNetworkImageView;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,14 +21,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import edu.ecu.csc412.televeyes.R;
-import edu.ecu.csc412.televeyes.SynActivity;
-import edu.ecu.csc412.televeyes.VolleySingleton;
-import edu.ecu.csc412.televeyes.database.DatabaseHelper;
-import edu.ecu.csc412.televeyes.model.Show;
-import edu.ecu.csc412.televeyes.util.CounterClass;
-import edu.ecu.csc412.televeyes.util.Util;
-import edu.ecu.csc412.televeyes.view.CheckableImageView;
+import edu.ecsu.csc412.televeyes.ApplicationSingleton;
+import edu.ecsu.csc412.televeyes.R;
+import edu.ecsu.csc412.televeyes.SynActivity;
+import edu.ecsu.csc412.televeyes.VolleySingleton;
+import edu.ecsu.csc412.televeyes.database.DatabaseHelper;
+import edu.ecsu.csc412.televeyes.model.Show;
+import edu.ecsu.csc412.televeyes.util.CounterClass;
+import edu.ecsu.csc412.televeyes.util.Util;
+import edu.ecsu.csc412.televeyes.view.CheckableImageView;
+import edu.ecsu.csc412.televeyes.view.CircularNetworkImageView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final List<Show> mValues;
@@ -138,7 +137,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
         });
 
-        if(position == 0){
+        if (position == 0) {
 
         }
 
@@ -156,7 +155,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public void setupDiscoverViewHolder(final RecyclerView.ViewHolder item, int position){
+    public void setupDiscoverViewHolder(final RecyclerView.ViewHolder item, int position) {
         final DiscoverViewHolder holder = (DiscoverViewHolder) item;
         holder.mItem = mValues.get(position);
         holder.mTitleView.setText(mValues.get(position).getName());

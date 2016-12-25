@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.adapter;
+package edu.ecsu.csc412.televeyes.adapter;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;

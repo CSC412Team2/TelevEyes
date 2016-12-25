@@ -1,4 +1,4 @@
-package edu.ecu.csc412.televeyes.view;
+package edu.ecsu.csc412.televeyes.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -10,11 +10,10 @@ import android.widget.ImageView;
  */
 
 public class CheckableImageView extends ImageView implements Checkable {
-    private boolean mChecked;
-
     private static final int[] CHECKED_STATE_SET = {
             android.R.attr.state_checked
     };
+    private boolean mChecked;
 
     public CheckableImageView(Context context, AttributeSet attrs) {
         super(context, attrs);

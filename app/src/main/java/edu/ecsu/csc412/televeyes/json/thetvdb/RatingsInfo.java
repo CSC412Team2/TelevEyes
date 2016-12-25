@@ -1,5 +1,4 @@
-
-package edu.ecu.csc412.televeyes.json.thetvdb;
+package edu.ecsu.csc412.televeyes.json.thetvdb;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

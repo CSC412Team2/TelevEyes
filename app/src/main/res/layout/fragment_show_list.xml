@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
-    android:name="edu.ecu.csc412.televeyes.ShowFragment"
+    android:name="edu.ecsu.csc412.televeyes.ShowFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="edu.ecu.csc412.televeyes.DiscoverFragment"
+    tools:context="edu.ecsu.csc412.televeyes.DiscoverFragment"
     tools:listitem="@layout/list_item_discover_show" />
