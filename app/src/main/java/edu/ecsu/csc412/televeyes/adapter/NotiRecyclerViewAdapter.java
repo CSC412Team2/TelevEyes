@@ -17,7 +17,7 @@ import edu.ecsu.csc412.televeyes.ApplicationSingleton;
 import edu.ecsu.csc412.televeyes.R;
 import edu.ecsu.csc412.televeyes.dummy.DummyContent.DummyItem;
 import edu.ecsu.csc412.televeyes.model.Show;
-import edu.ecsu.csc412.televeyes.tv.TVMaze;
+import edu.ecsu.csc412.televeyes.tv.Heroku;
 
 public class NotiRecyclerViewAdapter extends RecyclerView.Adapter<NotiRecyclerViewAdapter.ViewHolder> {
 
@@ -25,7 +25,7 @@ public class NotiRecyclerViewAdapter extends RecyclerView.Adapter<NotiRecyclerVi
 
     public NotiRecyclerViewAdapter() {
         mValues = new ArrayList<>();
-        TVMaze.getInstance().getSchedule(6, new TVMaze.OnShowSearchListener() {
+        Heroku.getInstance().getSchedule(6, new Heroku.OnShowSearchListener() {
             @Override
             public void onResults(List<Show> shows) {
                 for (int i = 0; i < shows.size(); i++) {

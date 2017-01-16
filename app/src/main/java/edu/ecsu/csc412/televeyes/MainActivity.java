@@ -40,7 +40,7 @@ import java.util.List;
 import edu.ecsu.csc412.televeyes.adapter.SuggestionAdapter;
 import edu.ecsu.csc412.televeyes.json.tvmaze.ShowContainer;
 import edu.ecsu.csc412.televeyes.model.Show;
-import edu.ecsu.csc412.televeyes.tv.TVMaze;
+import edu.ecsu.csc412.televeyes.tv.Heroku;
 import edu.ecsu.csc412.televeyes.view.SlidingTabLayout;
 
 //notifications
@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String query) {
-                TVMaze.getInstance().showSearch(query, 10, new TVMaze.OnShowSearchListener() {
+                Heroku.getInstance().showSearch(query, 10, new Heroku.OnShowSearchListener() {
                     @Override
                     public void onResults(List<Show> shows) {
                         List<String> items = new ArrayList<String>();

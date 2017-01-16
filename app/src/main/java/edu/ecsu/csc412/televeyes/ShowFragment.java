@@ -19,7 +19,7 @@ import java.util.List;
 import edu.ecsu.csc412.televeyes.adapter.RecyclerViewAdapter;
 import edu.ecsu.csc412.televeyes.database.DatabaseHelper;
 import edu.ecsu.csc412.televeyes.model.Show;
-import edu.ecsu.csc412.televeyes.tv.TVMaze;
+import edu.ecsu.csc412.televeyes.tv.Heroku;
 import edu.ecsu.csc412.televeyes.view.DividerItemDecoration;
 
 
@@ -109,7 +109,7 @@ public class ShowFragment extends Fragment {
     private void refreshShows() {
         List<Integer> showIds = databaseHelper.getShowIds();
         for (int i = 0; i < showIds.size(); i++) {
-            TVMaze.getInstance().getShowFromId(showIds.get(i), new TVMaze.OnShowLookupListener() {
+            Heroku.getInstance().getShowFromId(showIds.get(i), new Heroku.OnShowLookupListener() {
                 @Override
                 public void onResult(Show show) {
                     adapter.addShow(show);
@@ -127,7 +127,7 @@ public class ShowFragment extends Fragment {
     public void refreshShows(final String category) {
         List<Integer> showIds = databaseHelper.getShowIds();
         for (int i = 0; i < showIds.size(); i++) {
-            TVMaze.getInstance().getShowFromId(showIds.get(i), new TVMaze.OnShowLookupListener() {
+            Heroku.getInstance().getShowFromId(showIds.get(i), new Heroku.OnShowLookupListener() {
                 @Override
                 public void onResult(Show show) {
                     for (String cat : show.getGenres()) {

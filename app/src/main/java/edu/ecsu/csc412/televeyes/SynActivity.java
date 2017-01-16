@@ -27,7 +27,7 @@ import edu.ecsu.csc412.televeyes.adapter.ExpandableListAdapter;
 import edu.ecsu.csc412.televeyes.model.Episode;
 import edu.ecsu.csc412.televeyes.model.Season;
 import edu.ecsu.csc412.televeyes.model.Show;
-import edu.ecsu.csc412.televeyes.tv.TVMaze;
+import edu.ecsu.csc412.televeyes.tv.Heroku;
 import edu.ecsu.csc412.televeyes.tv.TheTVDB;
 import edu.ecsu.csc412.televeyes.view.SquareNetworkImageView;
 
@@ -93,7 +93,7 @@ public class SynActivity extends AppCompatActivity {
 
             getIntent().removeExtra("SHOW_ID");
 
-            TVMaze.getInstance().getShowFromId(id, new TVMaze.OnShowLookupListener() {
+            Heroku.getInstance().getShowFromId(id, new Heroku.OnShowLookupListener() {
                 @Override
                 public void onResult(final Show show) {
                     getSupportActionBar().setTitle(show.getName());
@@ -211,12 +211,12 @@ public class SynActivity extends AppCompatActivity {
                         mSynop.setText(Html.fromHtml(show.getSummary()).toString());
                     }
 
-                    TVMaze.getInstance().getSeasonsFromId(show.getId(), new TVMaze.OnSeasonLookupListener() {
+                    Heroku.getInstance().getSeasonsFromId(show.getId(), new Heroku.OnSeasonLookupListener() {
                         @Override
                         public void onResults(List<Season> seasonsList) {
                             seasons = seasonsList;
 
-                            TVMaze.getInstance().getEpisodesFromId(show.getId(), new TVMaze.OnEpisodeLookupListener() {
+                            Heroku.getInstance().getEpisodesFromId(show.getId(), new Heroku.OnEpisodeLookupListener() {
                                 @Override
                                 public void onResults(List<Episode> episodesList) {
                                     episodes = episodesList;

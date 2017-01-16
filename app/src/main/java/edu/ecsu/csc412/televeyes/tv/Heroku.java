@@ -22,28 +22,29 @@ import edu.ecsu.csc412.televeyes.model.Show;
  * Created by joshu on 10/2/2016.
  */
 
-public class TVMaze {
+public class Heroku {
     private static final String tvmaze = "http://api.tvmaze.com";
+    private static final String heroku = "https://televeyes.herokuapp.com/";
     private static final String singleSearch = tvmaze + "/singlesearch/shows?q=";
-    private static final String multiSearch = tvmaze + "/search/shows?q=";
+    private static final String multiSearch = heroku + "/search/";
     private static final String schedule = tvmaze + "/schedule?country=us";
-    private static final String lookup = tvmaze + "/shows/";
+    private static final String lookup = heroku + "/shows/";
     private static final String seasons = "/seasons";
     private static final String episodes = "/episodes";
 
-    private static TVMaze sInstance = null;
+    private static Heroku sInstance = null;
 
     private Gson gson;
     private RequestQueue requestQueue;
 
-    private TVMaze() {
+    private Heroku() {
         gson = new Gson();
         requestQueue = VolleySingleton.getInstance().getRequestQueue();
     }
 
-    public static TVMaze getInstance() {
+    public static Heroku getInstance() {
         if (sInstance == null) {
-            sInstance = new TVMaze();
+            sInstance = new Heroku();
         }
         return sInstance;
     }

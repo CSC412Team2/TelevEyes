@@ -19,7 +19,7 @@ import java.util.List;
 
 import edu.ecsu.csc412.televeyes.adapter.RecyclerViewAdapter;
 import edu.ecsu.csc412.televeyes.model.Show;
-import edu.ecsu.csc412.televeyes.tv.TVMaze;
+import edu.ecsu.csc412.televeyes.tv.Heroku;
 import edu.ecsu.csc412.televeyes.view.DividerItemDecoration;
 
 public class DiscoverFragment extends Fragment {
@@ -86,7 +86,7 @@ public class DiscoverFragment extends Fragment {
      * Refresh show list
      */
     private void refreshShows() {
-        TVMaze.getInstance().getSchedule(15, new TVMaze.OnShowSearchListener() {
+        Heroku.getInstance().getSchedule(15, new Heroku.OnShowSearchListener() {
             @Override
             public void onResults(List<Show> shows) {
                 //Get the list view
@@ -121,7 +121,7 @@ public class DiscoverFragment extends Fragment {
         if (cat.compareToIgnoreCase("all") == 0) {
             refreshShows();
         } else {
-            TVMaze.getInstance().getSchedule(100, new TVMaze.OnShowSearchListener() {
+            Heroku.getInstance().getSchedule(100, new Heroku.OnShowSearchListener() {
                 @Override
                 public void onResults(List<Show> results) {
                     //Get the list view

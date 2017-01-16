@@ -20,7 +20,7 @@ import java.util.List;
 
 import edu.ecsu.csc412.televeyes.adapter.RecyclerViewAdapter;
 import edu.ecsu.csc412.televeyes.model.Show;
-import edu.ecsu.csc412.televeyes.tv.TVMaze;
+import edu.ecsu.csc412.televeyes.tv.Heroku;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -63,7 +63,7 @@ public class SearchActivity extends AppCompatActivity {
             final String query = intent.getStringExtra(SearchManager.QUERY);
             searchLabel = (TextView) findViewById(R.id.results_label);
 
-            TVMaze.getInstance().showSearch(query, 25, new TVMaze.OnShowSearchListener() {
+            Heroku.getInstance().showSearch(query, 25, new Heroku.OnShowSearchListener() {
                 @Override
                 public void onResults(List<Show> shows) {
                     view = (RecyclerView) findViewById(R.id.search_resuts);
